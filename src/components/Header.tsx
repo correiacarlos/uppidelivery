@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, LogIn } from "lucide-react";
+import uppiLogo from "@/assets/uppi-logo.png";
 
 const links = [
   { to: "/como-funciona", label: "Como funciona" },
