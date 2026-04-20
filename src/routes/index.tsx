@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, ShoppingBag, Package, Bike, Smartphone, Apple, DollarSign, Calendar, MapPin, Send } from "lucide-react";
+import { Search, ShoppingBag, Package, Bike, DollarSign, Calendar, MapPin, Send } from "lucide-react";
+import { FaGooglePlay, FaApple } from "react-icons/fa";
 import heroPhone from "@/assets/hero-phone.jpg";
 import courierStreet from "@/assets/courier-street.jpg";
 import deliveryHandover from "@/assets/delivery-handover.jpg";
@@ -142,10 +143,10 @@ function HowItWorks() {
           <p className="font-bold">Baixe nosso App, é grátis!</p>
           <div className="mt-4 flex items-center justify-center gap-8">
             <a href="#" aria-label="Google Play" className="opacity-95 transition hover:opacity-100">
-              <Smartphone className="h-9 w-9" />
+              <FaGooglePlay className="h-9 w-9" />
             </a>
             <a href="#" aria-label="App Store" className="opacity-95 transition hover:opacity-100">
-              <Apple className="h-9 w-9" />
+              <FaApple className="h-9 w-9" />
             </a>
           </div>
         </div>
