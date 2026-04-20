@@ -48,6 +48,8 @@
   --color-ring-offset-background: var(--background);
   --color-primary-dark: var(--primary-dark);
   --color-primary-light: var(--primary-light);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-orange-foreground: var(--brand-orange-foreground);
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -80,8 +82,10 @@
   --secondary-foreground: oklch(0.32 0.08 150);
   --muted: oklch(0.97 0.01 150);
   --muted-foreground: oklch(0.5 0.03 155);
-  --accent: oklch(0.88 0.17 95);
-  --accent-foreground: oklch(0.28 0.08 95);
+  --accent: oklch(0.82 0.17 70);
+  --accent-foreground: oklch(0.28 0.08 70);
+  --brand-orange: oklch(0.68 0.21 45);
+  --brand-orange-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(0.93 0.01 150);
