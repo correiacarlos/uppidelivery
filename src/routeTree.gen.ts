@@ -13,6 +13,7 @@ import { Route as VantagensRouteImport } from './routes/vantagens'
 import { Route as EntregadoresRouteImport } from './routes/entregadores'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as ComoFuncionaRouteImport } from './routes/como-funciona'
+import { Route as CadastrarEstabelecimentoRouteImport } from './routes/cadastrar-estabelecimento'
 import { Route as IndexRouteImport } from './routes/index'
 
 const VantagensRoute = VantagensRouteImport.update({
@@ -35,6 +36,12 @@ const ComoFuncionaRoute = ComoFuncionaRouteImport.update({
   path: '/como-funciona',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CadastrarEstabelecimentoRoute =
+  CadastrarEstabelecimentoRouteImport.update({
+    id: '/cadastrar-estabelecimento',
+    path: '/cadastrar-estabelecimento',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cadastrar-estabelecimento': typeof CadastrarEstabelecimentoRoute
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
@@ -50,6 +58,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cadastrar-estabelecimento': typeof CadastrarEstabelecimentoRoute
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
@@ -58,6 +67,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cadastrar-estabelecimento': typeof CadastrarEstabelecimentoRoute
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
@@ -67,15 +77,23 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cadastrar-estabelecimento'
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
     | '/vantagens'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/como-funciona' | '/contato' | '/entregadores' | '/vantagens'
+  to:
+    | '/'
+    | '/cadastrar-estabelecimento'
+    | '/como-funciona'
+    | '/contato'
+    | '/entregadores'
+    | '/vantagens'
   id:
     | '__root__'
     | '/'
+    | '/cadastrar-estabelecimento'
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
@@ -84,6 +102,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CadastrarEstabelecimentoRoute: typeof CadastrarEstabelecimentoRoute
   ComoFuncionaRoute: typeof ComoFuncionaRoute
   ContatoRoute: typeof ContatoRoute
   EntregadoresRoute: typeof EntregadoresRoute
@@ -120,6 +139,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComoFuncionaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cadastrar-estabelecimento': {
+      id: '/cadastrar-estabelecimento'
+      path: '/cadastrar-estabelecimento'
+      fullPath: '/cadastrar-estabelecimento'
+      preLoaderRoute: typeof CadastrarEstabelecimentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -132,6 +158,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CadastrarEstabelecimentoRoute: CadastrarEstabelecimentoRoute,
   ComoFuncionaRoute: ComoFuncionaRoute,
   ContatoRoute: ContatoRoute,
   EntregadoresRoute: EntregadoresRoute,
@@ -140,3 +167,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
