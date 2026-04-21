@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, LogIn } from "lucide-react";
-import uppiLogo from "@/assets/uppi-logo.png";
+import uppiLogo from "@/assets/uppi-logo-text.png";
 
 const links = [
   { to: "/como-funciona", label: "Como funciona" },
@@ -17,7 +17,7 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-primary text-primary-foreground shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-[10px]">
         <Link to="/" className="flex items-center gap-2" aria-label="UPPI início">
-          <img src={uppiLogo} alt="UPPI" className="h-12 w-12 rounded-md object-cover" />
+          <img src={uppiLogo} alt="UPPI" className="h-[72px] w-auto object-contain" />
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
