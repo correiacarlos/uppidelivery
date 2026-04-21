@@ -285,10 +285,10 @@ function HowToStart() {
           backgroundImage: `url(${courierBg})`,
           filter: "blur(8px)",
           transform: "scale(1.1)",
-          opacity: 0.5,
+          opacity: 0.2,
         }}
       />
-      <div aria-hidden className="absolute inset-0 -z-10 bg-black/40" />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-white/70" />
 
       <div className="mx-auto max-w-6xl px-6">
         <h2 className="text-center text-2xl font-black text-primary sm:text-3xl md:text-4xl">
@@ -301,7 +301,7 @@ function HowToStart() {
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                   {s.n}
                 </span>
-                <div className="text-white">
+                <div className="text-foreground">
                   <h3 className="font-bold text-primary">{s.title}</h3>
                   <p className="mt-1 text-sm">{s.desc}</p>
                 </div>
