@@ -15,9 +15,9 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-primary text-primary-foreground shadow-sm">
-      <div className="mx-auto flex max-w-6xl items-start justify-between px-6 py-[10px]">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-[10px]">
         <Link to="/" className="flex items-center gap-2" aria-label="UPPI início">
-          <img src={uppiLogo} alt="UPPI" className="h-[77px] w-[77px] -mt-[10px] -mb-5 rounded-md object-cover" />
+          <img src={uppiLogo} alt="UPPI" className="h-[77px] w-[77px] self-start -mt-[10px] -mb-5 rounded-md object-cover" />
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
