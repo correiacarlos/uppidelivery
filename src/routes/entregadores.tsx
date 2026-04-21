@@ -336,11 +336,6 @@ function Requirements() {
       title: "MOTO",
       items: ["CNH categoria A válida", "Smartphone Android/iOS", "Maior de 18 anos", "Documento do veículo"],
     },
-    {
-      icon: Bike,
-      title: "BICICLETA",
-      items: ["Documento de identidade", "Smartphone Android/iOS", "Maior de 18 anos", "Não precisa de CNH"],
-    },
   ];
   return (
     <section className="bg-background py-20">
@@ -348,7 +343,7 @@ function Requirements() {
         <h2 className="text-center text-2xl font-black text-foreground sm:text-3xl md:text-4xl">
           O que você precisa para começar?
         </h2>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
           {groups.map((g) => (
             <div
               key={g.title}
