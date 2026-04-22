@@ -25,7 +25,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-brand-orange text-brand-orange-foreground">
+    <footer className="bg-primary text-primary-foreground">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-5">
         <div className="md:col-span-1">
           <div className="flex items-center gap-2 text-xl font-black">
