@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { ShoppingBag, Youtube } from "lucide-react";
+import { Youtube } from "lucide-react";
 import { FaInstagram, FaTwitter, FaLinkedinIn, FaFacebookF, FaGooglePlay, FaApple } from "react-icons/fa";
+import uppiLogo from "@/assets/uppi-logo.png";
 
 export function Footer() {
   const cols = [
@@ -25,13 +26,12 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="bg-footer text-footer-foreground">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-5">
         <div className="md:col-span-1">
-          <div className="flex items-center gap-2 text-xl font-black">
-            <ShoppingBag className="h-6 w-6" />
-            <span>Uppi Delivery</span>
-          </div>
+          <Link to="/" aria-label="UPPI início" className="inline-flex">
+            <img src={uppiLogo} alt="UPPI" className="h-auto w-[150px] object-contain" />
+          </Link>
           <p className="mt-2 text-sm opacity-90">comércio</p>
         </div>
 
