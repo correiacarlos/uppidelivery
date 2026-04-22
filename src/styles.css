@@ -51,6 +51,7 @@
   --color-brand-orange: var(--brand-orange);
   --color-brand-orange-foreground: var(--brand-orange-foreground);
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "VAG Rounded", "VAG Rounded Std", "VAG Rounded BT", "Nunito", ui-sans-serif, system-ui, sans-serif;
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -163,7 +164,9 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, h4 {
+  h1, h2, h3, h4,
+  .font-black {
+    font-family: var(--font-display);
     font-weight: 800;
     letter-spacing: -0.02em;
   }
