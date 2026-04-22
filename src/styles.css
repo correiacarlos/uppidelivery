@@ -50,6 +50,8 @@
   --color-primary-light: var(--primary-light);
   --color-brand-orange: var(--brand-orange);
   --color-brand-orange-foreground: var(--brand-orange-foreground);
+  --color-footer: var(--footer);
+  --color-footer-foreground: var(--footer-foreground);
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
   --font-display: "VAG Rounded", "VAG Rounded Std", "VAG Rounded BT", "Nunito", ui-sans-serif, system-ui, sans-serif;
   --color-chart-1: var(--chart-1);
@@ -87,6 +89,8 @@
   --accent-foreground: oklch(0.28 0.08 70);
   --brand-orange: oklch(0.68 0.21 45);
   --brand-orange-foreground: oklch(1 0 0);
+  --footer: oklch(0.43 0.13 150);
+  --footer-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(0.93 0.01 150);
