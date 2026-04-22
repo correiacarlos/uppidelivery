@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Youtube } from "lucide-react";
 import { FaInstagram, FaTwitter, FaLinkedinIn, FaFacebookF, FaGooglePlay, FaApple } from "react-icons/fa";
-import uppiLogo from "@/assets/uppi-logo.png";
+import uppiFooterLogo from "@/assets/uppi-footer-logo.png";
 
 export function Footer() {
   const cols = [
@@ -30,7 +30,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-5">
         <div className="md:col-span-1">
           <Link to="/" aria-label="UPPI início" className="inline-flex">
-            <img src={uppiLogo} alt="UPPI" className="h-auto w-[150px] object-contain" />
+            <img src={uppiFooterLogo} alt="UPPI" className="h-auto w-[112px] rounded-2xl object-contain" />
           </Link>
           <p className="mt-2 text-sm opacity-90">comércio</p>
         </div>
