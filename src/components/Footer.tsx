@@ -32,7 +32,6 @@ export function Footer() {
           <Link to="/" aria-label="UPPI início" className="inline-flex">
             <img src={uppiFooterLogo} alt="UPPI" className="h-auto w-[112px] rounded-2xl object-contain" />
           </Link>
-          <p className="mt-2 text-sm opacity-90">comércio</p>
         </div>
 
         {cols.map((c) => (
