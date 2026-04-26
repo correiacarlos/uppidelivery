@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, DollarSign, Clock, Check, Car, Bike } from "lucide-react";
+import { DollarSign, Clock, Check, Car, Bike, ArrowRight } from "lucide-react";
 import courierBg from "@/assets/courier-bg.jpg";
 import phoneApps from "@/assets/hero-phone.jpg";
+import courierHero from "@/assets/courier-hero.jpg";
 
 export const Route = createFileRoute("/entregadores")({
   head: () => ({
@@ -26,7 +27,8 @@ export const Route = createFileRoute("/entregadores")({
 function Page() {
   return (
     <>
-      <HeroForm />
+      <Hero />
+      <CadastroSection />
       <Benefits />
       <HowToStart />
       <Requirements />
@@ -34,7 +36,54 @@ function Page() {
   );
 }
 
-function HeroForm() {
+function Hero() {
+  return (
+    <section className="relative isolate overflow-hidden bg-[oklch(0.18_0.02_155)] text-white">
+      {/* Imagem de fundo no lado direito */}
+      <div
+        aria-hidden
+        className="absolute inset-y-0 right-0 -z-0 w-full md:w-3/5 lg:w-1/2"
+        style={{
+          backgroundImage: `url(${courierHero})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center right",
+        }}
+      />
+      {/* Gradiente para fundir a foto com o fundo escuro */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-0"
+        style={{
+          background:
+            "linear-gradient(90deg, oklch(0.18 0.02 155) 0%, oklch(0.18 0.02 155) 35%, oklch(0.18 0.02 155 / 0.85) 50%, oklch(0.18 0.02 155 / 0.2) 70%, transparent 100%)",
+        }}
+      />
+      <div className="absolute inset-0 -z-0 bg-black/30 md:hidden" />
+
+      <div className="relative mx-auto flex min-h-[560px] max-w-7xl items-center px-6 py-20 sm:py-24 md:min-h-[640px]">
+        <div className="max-w-2xl">
+          <h1 className="font-display text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
+            Que tal entregar
+            <br />
+            com a UPPI?
+          </h1>
+          <p className="mt-6 max-w-md text-lg text-white/85 sm:text-xl">
+            Ganhe do seu jeito, quando e onde quiser.
+          </p>
+          <a
+            href="#cadastro"
+            className="mt-10 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-bold text-primary-foreground shadow-lg transition hover:bg-primary-light"
+          >
+            Vem ser UPPI
+            <ArrowRight className="h-5 w-5" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CadastroSection() {
   const [form, setForm] = useState({
     nome: "",
     telefone: "",
@@ -60,40 +109,20 @@ function HeroForm() {
   };
 
   return (
-    <section className="relative isolate overflow-hidden">
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${courierBg})`,
-          filter: "blur(8px)",
-          transform: "scale(1.1)",
-          opacity: 0.5,
-        }}
-      />
-      <div aria-hidden className="absolute inset-0 -z-10 bg-black/40" />
-
-      <div className="mx-auto max-w-3xl px-6 py-12">
-        <Link
-          to="/"
-          aria-label="Voltar"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white transition hover:bg-white/10"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </Link>
-
-        <div className="mt-2 text-center text-white">
-          <h1 className="text-3xl font-black sm:text-4xl">
-            Ganhe dinheiro
-            <br />
-            semanalmente
-          </h1>
-          <p className="mt-2 text-base sm:text-lg">Cadastre-se agora</p>
+    <section id="cadastro" className="bg-secondary/40 py-20">
+      <div className="mx-auto max-w-3xl px-6">
+        <div className="text-center">
+          <h2 className="font-display text-3xl font-black text-foreground sm:text-4xl">
+            Cadastre-se agora
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            Preencha seus dados e comece a fazer entregas com o UPPI.
+          </p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="mx-auto mt-8 w-full max-w-md space-y-4 rounded-2xl bg-card p-6 sm:p-8"
+          className="mx-auto mt-10 w-full max-w-md space-y-4 rounded-3xl bg-card p-6 sm:p-8"
           style={{ boxShadow: "var(--shadow-card)" }}
         >
           <Field
@@ -173,7 +202,7 @@ function HeroForm() {
 
           <button
             type="submit"
-            className="w-full rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground transition hover:bg-primary-dark"
+            className="w-full rounded-full bg-primary px-6 py-3 text-base font-bold text-primary-foreground transition hover:bg-primary-dark"
           >
             Cadastre-se
           </button>
