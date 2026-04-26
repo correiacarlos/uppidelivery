@@ -258,150 +258,163 @@ function Field({
   );
 }
 
-function Benefits() {
-  const items = [
+function Vantagens() {
+  const cards = [
     {
-      icon: DollarSign,
-      title: "Ganhos",
-      desc: "Ganhe dinheiro por cada entrega realizada. Quanto mais você trabalha, mais você ganha.",
+      image: courierEarnings,
+      alt: "Entregador UPPI sorrindo segurando sacola de entrega",
+      title: "Ganhe mais a cada pedido!",
+      desc: "Transforme seu tempo em dinheiro: quanto mais você entrega, mais você ganha. Simples assim.",
+      bullets: [
+        "Taxas competitivas",
+        "Ganhos turbinados nos horários de pico",
+        "Convide sua rede e ganhe incentivos por indicação",
+      ],
+      reverse: false,
     },
     {
-      icon: Clock,
-      title: "Flexibilidade",
-      desc: "Escolha seus próprios horários. Trabalhe quando e quanto quiser, do seu jeito.",
-    },
-    {
-      icon: Check,
-      title: "Cadastro fácil",
-      desc: "Processo de cadastro rápido e simples. Comece a trabalhar em poucos passos.",
-    },
-  ];
-  return (
-    <section className="bg-background py-20">
-      <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-center text-2xl font-black text-primary sm:text-3xl md:text-4xl">
-          Por que fazer entregas com o Uppi?
-        </h2>
-        <div className="mt-12 grid gap-10 md:grid-cols-3">
-          {items.map((it) => (
-            <div key={it.title} className="text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/15 text-primary">
-                <it.icon className="h-6 w-6" />
-              </div>
-              <h3 className="mt-4 font-bold text-foreground">{it.title}</h3>
-              <p className="mx-auto mt-2 max-w-xs text-sm text-muted-foreground">{it.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HowToStart() {
-  const steps = [
-    {
-      n: "01",
-      title: "Cadastre-se em 3 passos",
-      desc: "Preencha o formulário acima com seus dados pessoais e informações do veículo.",
-    },
-    {
-      n: "02",
-      title: "Baixe o aplicativo",
-      desc: "Após a aprovação do cadastro, baixe o app Uppi Entregador e faça login.",
-    },
-    {
-      n: "03",
-      title: "Faça suas primeiras entregas",
-      desc: "Aceite pedidos, realize entregas e comece a ganhar dinheiro imediatamente.",
-    },
-  ];
-  return (
-    <section className="relative isolate overflow-hidden py-20">
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${courierBg})`,
-          filter: "blur(8px)",
-          transform: "scale(1.1)",
-          opacity: 0.2,
-        }}
-      />
-      <div aria-hidden className="absolute inset-0 -z-10 bg-white/70" />
-
-      <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-center text-2xl font-black text-primary sm:text-3xl md:text-4xl">
-          Como começar a fazer entregas?
-        </h2>
-        <div className="mt-12 grid items-center gap-10 md:grid-cols-2">
-          <ol className="space-y-6">
-            {steps.map((s) => (
-              <li key={s.n} className="flex gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                  {s.n}
-                </span>
-                <div className="text-foreground">
-                  <h3 className="font-bold text-primary">{s.title}</h3>
-                  <p className="mt-1 text-sm">{s.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <div className="flex justify-center">
-            <img
-              src={phoneApps}
-              alt="App Uppi Entregador"
-              width={400}
-              height={300}
-              loading="lazy"
-              className="w-2/3 max-w-xs rounded-2xl object-cover shadow-2xl"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Requirements() {
-  const groups = [
-    {
-      icon: Car,
-      title: "CARRO",
-      items: ["CNH categoria B válida", "Smartphone Android/iOS", "Maior de 18 anos", "Documento do veículo"],
-    },
-    {
-      icon: Bike,
-      title: "MOTO",
-      items: ["CNH categoria A válida", "Smartphone Android/iOS", "Maior de 18 anos", "Documento do veículo"],
+      image: courierFlexible,
+      alt: "Dois entregadores UPPI trocando uma sacola laranja",
+      title: "Online à qualquer hora!",
+      desc: "Controle total: entregue a qualquer hora, em qualquer dia — a escolha é sua! Perfeito para estudantes, pais, freelancers ou qualquer pessoa que queira mais flexibilidade.",
+      bullets: [
+        "No seu ritmo — você decide quando ficar online",
+        "Sem horas mínimas, sem pressão",
+        "Cadastro fácil — comece sem experiência",
+      ],
+      reverse: true,
     },
   ];
   return (
     <section className="bg-background py-20">
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-center text-2xl font-black text-foreground sm:text-3xl md:text-4xl">
-          O que você precisa para começar?
+        <h2 className="text-center font-display text-3xl font-black text-foreground sm:text-4xl md:text-5xl">
+          Vantagens de entregar com a UPPI
         </h2>
-        <div className="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
-          {groups.map((g) => (
-            <div
-              key={g.title}
-              className="rounded-2xl border border-border bg-card p-6"
+
+        <div className="mt-12 space-y-8">
+          {cards.map((c) => (
+            <article
+              key={c.title}
+              className="overflow-hidden rounded-3xl bg-card"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
-              <div className="flex justify-center text-primary">
-                <g.icon className="h-10 w-10" />
+              <div className="grid items-stretch gap-0 md:grid-cols-2">
+                <div
+                  className={`relative min-h-[240px] md:min-h-[320px] ${
+                    c.reverse ? "md:order-2" : ""
+                  }`}
+                >
+                  <img
+                    src={c.image}
+                    alt={c.alt}
+                    width={800}
+                    height={640}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                </div>
+                <div className={`p-6 sm:p-8 md:p-10 ${c.reverse ? "md:order-1" : ""}`}>
+                  <h3 className="font-display text-2xl font-black text-foreground sm:text-3xl">
+                    {c.title}
+                  </h3>
+                  <p className="mt-3 text-sm text-muted-foreground sm:text-base">{c.desc}</p>
+                  <ul className="mt-5 space-y-2.5">
+                    {c.bullets.map((b) => (
+                      <li key={b} className="flex items-start gap-2 text-sm text-foreground">
+                        <span className="mt-1.5 inline-block h-2 w-2 shrink-0 rounded-full bg-primary" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <h3 className="mt-3 text-center font-black text-foreground">{g.title}</h3>
-              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                {g.items.map((i) => (
-                  <li key={i}>• {i}</li>
-                ))}
-              </ul>
-            </div>
+            </article>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function CentralEntregador() {
+  const items = [
+    { icon: UserPlus, label: "Cadastro de entregador" },
+    { icon: ListChecks, label: "Atribuição de pedidos" },
+    { icon: CalendarDays, label: "Rotina diária do entregador" },
+    { icon: FileBadge, label: "Código de conduta" },
+    { icon: Wallet, label: "Ganhos do entregador" },
+    { icon: ShieldCheck, label: "Segurança e proteção" },
+    { icon: HeartHandshake, label: "Seguro para entregadores" },
+    { icon: Award, label: "Incentivos para entregadores OL" },
+  ];
+  return (
+    <section className="bg-secondary/40 py-20">
+      <div className="mx-auto max-w-6xl px-6">
+        <h2 className="text-center font-display text-3xl font-black text-foreground sm:text-4xl md:text-5xl">
+          Central do entregador / Perguntas frequentes
+        </h2>
+
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4">
+          {items.map((it) => (
+            <button
+              key={it.label}
+              type="button"
+              className="group flex flex-col items-center justify-center rounded-2xl bg-card p-5 text-center transition hover:-translate-y-1 hover:shadow-lg sm:p-6"
+              style={{ boxShadow: "var(--shadow-card)" }}
+            >
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+                <it.icon className="h-6 w-6" />
+              </span>
+              <span className="mt-3 text-xs font-semibold text-foreground sm:text-sm">
+                {it.label}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OperadorLogistico() {
+  return (
+    <section className="bg-background py-20">
+      <div className="mx-auto max-w-6xl px-6">
+        <article
+          className="overflow-hidden rounded-3xl bg-card"
+          style={{ boxShadow: "var(--shadow-card)" }}
+        >
+          <div className="grid items-stretch gap-0 md:grid-cols-2">
+            <div className="relative min-h-[260px] md:min-h-[340px]">
+              <img
+                src={courierOl}
+                alt="Operador logístico UPPI trabalhando no computador"
+                width={800}
+                height={640}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </div>
+            <div className="p-6 sm:p-8 md:p-10">
+              <h3 className="font-display text-2xl font-black text-foreground sm:text-3xl">
+                Você é Operador Logístico (OL)?
+              </h3>
+              <p className="mt-3 text-sm text-muted-foreground sm:text-base">
+                Sua empresa de entregas possui frota própria? Seja um parceiro UPPI e conte com
+                benefícios exclusivos. Clique no botão abaixo, preencha seus dados e entraremos em
+                contato em breve.
+              </p>
+              <Link
+                to="/contato"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-primary-foreground transition hover:bg-primary-light"
+              >
+                Saiba mais
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   );
