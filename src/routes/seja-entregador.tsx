@@ -292,3 +292,110 @@ function Field({
     </div>
   );
 }
+
+const LOCATIONS: Record<string, string[]> = {
+  "Minas Gerais": ["Cambuí", "Córrego do Bom Jesus", "Camanducaia", "Senador Amaral"],
+};
+
+function LocationPicker({
+  estado,
+  cidade,
+  onChange,
+}: {
+  estado: string;
+  cidade: string;
+  onChange: (estado: string, cidade: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [hoverEstado, setHoverEstado] = useState<string | null>(null);
+  const estados = Object.keys(LOCATIONS);
+  const activeEstado = hoverEstado ?? estado ?? null;
+  const cidades = activeEstado ? LOCATIONS[activeEstado] ?? [] : [];
+  const display = estado && cidade ? `${cidade} - ${estado}` : "Selecionar";
+
+  return (
+    <div className="relative">
+      <label className="text-sm font-semibold">
+        Localização <span className="text-primary">*</span>
+      </label>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="mt-1 flex w-full items-center justify-between rounded-full border border-input bg-background px-4 py-2.5 text-left text-sm outline-none transition focus:border-primary"
+      >
+        <span className={estado && cidade ? "text-foreground" : "text-muted-foreground"}>
+          {display}
+        </span>
+        <ChevronRight
+          className={`h-4 w-4 text-muted-foreground transition ${open ? "rotate-90" : ""}`}
+        />
+      </button>
+
+      {open && (
+        <div className="absolute left-0 right-0 top-full z-20 mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {/* Coluna Estados */}
+          <div
+            className="overflow-hidden rounded-2xl border border-border bg-card"
+            style={{ boxShadow: "var(--shadow-card)" }}
+          >
+            <ul className="max-h-64 overflow-y-auto py-1">
+              {estados.map((uf) => {
+                const isActive = activeEstado === uf;
+                return (
+                  <li key={uf}>
+                    <button
+                      type="button"
+                      onMouseEnter={() => setHoverEstado(uf)}
+                      onClick={() => setHoverEstado(uf)}
+                      className={`flex w-full items-center justify-between px-4 py-2.5 text-sm transition ${
+                        isActive
+                          ? "font-bold text-primary"
+                          : "text-foreground hover:bg-muted"
+                      }`}
+                    >
+                      <span>{uf}</span>
+                      <ChevronRight className="h-4 w-4 opacity-60" />
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {/* Coluna Cidades */}
+          {activeEstado && (
+            <div
+              className="overflow-hidden rounded-2xl border border-border bg-card"
+              style={{ boxShadow: "var(--shadow-card)" }}
+            >
+              <ul className="max-h-64 overflow-y-auto py-1">
+                {cidades.map((c) => {
+                  const isSel = estado === activeEstado && cidade === c;
+                  return (
+                    <li key={c}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onChange(activeEstado, c);
+                          setOpen(false);
+                          setHoverEstado(null);
+                        }}
+                        className={`flex w-full items-center px-4 py-2.5 text-sm transition ${
+                          isSel
+                            ? "font-bold text-primary"
+                            : "text-foreground hover:bg-muted"
+                        }`}
+                      >
+                        {c}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
