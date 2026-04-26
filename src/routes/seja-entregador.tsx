@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ChevronRight } from "lucide-react";
 import courierBg from "@/assets/courier-bg.jpg";
 import uppiLogo from "@/assets/uppi-logo.png";
 
@@ -142,6 +142,7 @@ function CadastroCard() {
     cpf: "",
     email: "",
     telefone: "",
+    estado: "",
     cidade: "",
     aceito: false,
   });
@@ -154,6 +155,10 @@ function CadastroCard() {
     }
     if (!form.aceito) {
       alert("Você precisa aceitar os termos e condições.");
+      return;
+    }
+    if (!form.estado || !form.cidade) {
+      alert("Selecione seu estado e cidade.");
       return;
     }
     alert("Cadastro enviado! Em breve entraremos em contato.");
@@ -223,12 +228,10 @@ function CadastroCard() {
           onChange={(v) => setForm({ ...form, telefone: v })}
           required
         />
-        <Field
-          label="Cidade"
-          placeholder="Sua cidade"
-          value={form.cidade}
-          onChange={(v) => setForm({ ...form, cidade: v })}
-          required
+        <LocationPicker
+          estado={form.estado}
+          cidade={form.cidade}
+          onChange={(estado, cidade) => setForm({ ...form, estado, cidade })}
         />
 
         <label className="flex items-start gap-3 rounded-lg border border-border bg-muted/40 p-3 text-xs text-muted-foreground">
