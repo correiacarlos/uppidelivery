@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
 import {
   ArrowRight,
   UserPlus,
@@ -39,7 +38,6 @@ function Page() {
   return (
     <>
       <Hero />
-      <CadastroSection />
       <Vantagens />
       <CentralEntregador />
       <OperadorLogistico />
