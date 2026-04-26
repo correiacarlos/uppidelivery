@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VantagensRouteImport } from './routes/vantagens'
+import { Route as SejaEntregadorRouteImport } from './routes/seja-entregador'
 import { Route as EntregadoresRouteImport } from './routes/entregadores'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as ComoFuncionaRouteImport } from './routes/como-funciona'
@@ -19,6 +20,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const VantagensRoute = VantagensRouteImport.update({
   id: '/vantagens',
   path: '/vantagens',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SejaEntregadorRoute = SejaEntregadorRouteImport.update({
+  id: '/seja-entregador',
+  path: '/seja-entregador',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EntregadoresRoute = EntregadoresRouteImport.update({
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
+  '/seja-entregador': typeof SejaEntregadorRoute
   '/vantagens': typeof VantagensRoute
 }
 export interface FileRoutesByTo {
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
+  '/seja-entregador': typeof SejaEntregadorRoute
   '/vantagens': typeof VantagensRoute
 }
 export interface FileRoutesById {
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
+  '/seja-entregador': typeof SejaEntregadorRoute
   '/vantagens': typeof VantagensRoute
 }
 export interface FileRouteTypes {
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
+    | '/seja-entregador'
     | '/vantagens'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
+    | '/seja-entregador'
     | '/vantagens'
   id:
     | '__root__'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
+    | '/seja-entregador'
     | '/vantagens'
   fileRoutesById: FileRoutesById
 }
@@ -106,6 +118,7 @@ export interface RootRouteChildren {
   ComoFuncionaRoute: typeof ComoFuncionaRoute
   ContatoRoute: typeof ContatoRoute
   EntregadoresRoute: typeof EntregadoresRoute
+  SejaEntregadorRoute: typeof SejaEntregadorRoute
   VantagensRoute: typeof VantagensRoute
 }
 
@@ -116,6 +129,13 @@ declare module '@tanstack/react-router' {
       path: '/vantagens'
       fullPath: '/vantagens'
       preLoaderRoute: typeof VantagensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seja-entregador': {
+      id: '/seja-entregador'
+      path: '/seja-entregador'
+      fullPath: '/seja-entregador'
+      preLoaderRoute: typeof SejaEntregadorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/entregadores': {
@@ -162,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComoFuncionaRoute: ComoFuncionaRoute,
   ContatoRoute: ContatoRoute,
   EntregadoresRoute: EntregadoresRoute,
+  SejaEntregadorRoute: SejaEntregadorRoute,
   VantagensRoute: VantagensRoute,
 }
 export const routeTree = rootRouteImport
