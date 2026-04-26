@@ -80,7 +80,7 @@ function Hero() {
             Ganhe do seu jeito, quando e onde quiser.
           </p>
           <Link
-            to="/contato"
+            to="/seja-entregador"
             className="mt-10 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-bold text-primary-foreground shadow-lg transition hover:bg-primary-light"
           >
             Vem ser UPPI
