@@ -1,9 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { DollarSign, Clock, Check, Car, Bike, ArrowRight } from "lucide-react";
-import courierBg from "@/assets/courier-bg.jpg";
-import phoneApps from "@/assets/hero-phone.jpg";
+import {
+  ArrowRight,
+  UserPlus,
+  ListChecks,
+  CalendarDays,
+  ShieldCheck,
+  Wallet,
+  HeartHandshake,
+  FileBadge,
+  Award,
+} from "lucide-react";
 import courierHero from "@/assets/courier-hero.jpg";
+import courierEarnings from "@/assets/courier-earnings.jpg";
+import courierFlexible from "@/assets/courier-flexible.jpg";
+import courierOl from "@/assets/courier-ol.jpg";
 
 export const Route = createFileRoute("/entregadores")({
   head: () => ({
@@ -29,9 +40,9 @@ function Page() {
     <>
       <Hero />
       <CadastroSection />
-      <Benefits />
-      <HowToStart />
-      <Requirements />
+      <Vantagens />
+      <CentralEntregador />
+      <OperadorLogistico />
     </>
   );
 }
