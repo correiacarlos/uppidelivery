@@ -1,6 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronDown, ChevronRight } from "lucide-react";
 import courierBg from "@/assets/courier-bg.jpg";
 import courierEarnings from "@/assets/courier-earnings.jpg";
 import courierFlexible from "@/assets/courier-flexible.jpg";
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/seja-entregador")({
       {
         name: "description",
         content:
-          "Cadastre-se para ser entregador UPPI. Confira os requisitos e preencha seus dados para começar.",
+          "Cadastre-se para ser entregador UPPI. Confira os requisitos e comece o seu cadastro.",
       },
       { property: "og:title", content: "Seja UPPI – Cadastro de entregadores" },
       {
@@ -27,7 +27,6 @@ export const Route = createFileRoute("/seja-entregador")({
 function Page() {
   return (
     <main className="bg-background">
-      {/* Topo: fundo verde com imagem desfocada e dois cards */}
       <section className="relative overflow-hidden">
         <div
           aria-hidden
@@ -59,11 +58,10 @@ function Page() {
 
         <div className="relative mx-auto grid max-w-6xl gap-6 px-6 pb-16 pt-6 md:grid-cols-2 md:gap-8 md:pt-8">
           <RequirementsCard />
-          <CadastroCard />
+          <StartCard />
         </div>
       </section>
 
-      {/* Seção: Vantagens */}
       <section className="bg-background py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="text-center font-display text-3xl font-black text-foreground sm:text-5xl">
@@ -129,11 +127,7 @@ function AdvantageCard({
 
 function RequirementsCard() {
   const items = [
-    {
-      n: 1,
-      title: "Ter 18 anos ou mais",
-      sub: null as string[] | null,
-    },
+    { n: 1, title: "Ter 18 anos ou mais", sub: null as string[] | null },
     {
       n: 2,
       title: "Documento de identificação válido",
@@ -192,127 +186,74 @@ function RequirementsCard() {
   );
 }
 
-function CadastroCard() {
-  const [form, setForm] = useState({
-    veiculo: "",
-    nome: "",
-    sobrenome: "",
-    cpf: "",
-    email: "",
-    telefone: "",
-    estado: "",
-    cidade: "",
-    aceito: false,
-  });
+function StartCard() {
+  const navigate = useNavigate();
+  const [estado, setEstado] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [nome, setNome] = useState("");
+  const [sobrenome, setSobrenome] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!form.veiculo) {
-      alert("Selecione o tipo de veículo.");
-      return;
-    }
-    if (!form.aceito) {
-      alert("Você precisa aceitar os termos e condições.");
-      return;
-    }
-    if (!form.estado || !form.cidade) {
+    if (!estado || !cidade) {
       alert("Selecione seu estado e cidade.");
       return;
     }
-    alert("Cadastro enviado! Em breve entraremos em contato.");
-  };
+    if (!nome.trim() || !sobrenome.trim()) {
+      alert("Preencha nome e sobrenome.");
+      return;
+    }
+    navigate({
+      to: "/cadastro-entregador",
+      search: {
+        estado,
+        cidade,
+        nome: nome.trim(),
+        sobrenome: sobrenome.trim(),
+      },
+    });
+  }
 
   return (
     <article
       className="rounded-3xl bg-card p-6 text-foreground sm:p-8"
       style={{ boxShadow: "var(--shadow-card)" }}
     >
-      <h2 className="font-display text-2xl font-black sm:text-3xl">Cadastre-se</h2>
+      <h2 className="font-display text-2xl font-black sm:text-3xl">Comece seu cadastro</h2>
       <p className="mt-2 text-sm text-muted-foreground">
-        Preencha seus dados para começar a fazer entregas com a UPPI.
+        Selecione sua localização e nos diga seu nome para continuar.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-        <div>
-          <label className="text-sm font-semibold">
-            Selecionar veículo <span className="text-primary">*</span>
-          </label>
-          <select
-            value={form.veiculo}
-            onChange={(e) => setForm({ ...form, veiculo: e.target.value })}
-            required
-            className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none transition focus:border-primary"
-          >
-            <option value="">Selecionar</option>
-            <option value="moto">Moto</option>
-            <option value="carro">Carro</option>
-            <option value="bicicleta">Bicicleta</option>
-          </select>
-        </div>
+        <LocationPicker
+          estado={estado}
+          cidade={cidade}
+          onChange={(e, c) => {
+            setEstado(e);
+            setCidade(c);
+          }}
+        />
 
         <Field
-          label="Nome completo"
-          placeholder="Nome completo"
-          value={form.nome}
-          onChange={(v) => setForm({ ...form, nome: v })}
+          label="Nome"
+          placeholder="Seu nome"
+          value={nome}
+          onChange={setNome}
           required
         />
         <Field
           label="Sobrenome"
-          placeholder="Sobrenome"
-          value={form.sobrenome}
-          onChange={(v) => setForm({ ...form, sobrenome: v })}
+          placeholder="Seu sobrenome"
+          value={sobrenome}
+          onChange={setSobrenome}
           required
         />
-        <Field
-          label="CPF"
-          placeholder="000.000.000-00"
-          value={form.cpf}
-          onChange={(v) => setForm({ ...form, cpf: v })}
-          required
-        />
-        <Field
-          label="E-mail"
-          type="email"
-          placeholder="seu@email.com"
-          value={form.email}
-          onChange={(v) => setForm({ ...form, email: v })}
-          required
-        />
-        <Field
-          label="Telefone"
-          placeholder="(00) 00000-0000"
-          value={form.telefone}
-          onChange={(v) => setForm({ ...form, telefone: v })}
-          required
-        />
-        <LocationPicker
-          estado={form.estado}
-          cidade={form.cidade}
-          onChange={(estado, cidade) => setForm({ ...form, estado, cidade })}
-        />
-
-        <label className="flex items-start gap-3 rounded-lg border border-border bg-muted/40 p-3 text-xs text-muted-foreground">
-          <input
-            type="checkbox"
-            checked={form.aceito}
-            onChange={(e) => setForm({ ...form, aceito: e.target.checked })}
-            className="mt-0.5 h-4 w-4 shrink-0 rounded border-input accent-primary"
-          />
-          <span>
-            Concordo com os{" "}
-            <a href="#" className="font-semibold text-primary underline">
-              termos e condições
-            </a>{" "}
-            e com a política de uso de dados da UPPI.
-          </span>
-        </label>
 
         <button
           type="submit"
           className="w-full rounded-full bg-primary px-6 py-3 text-base font-bold text-primary-foreground transition hover:bg-primary-dark"
         >
-          Cadastre-se
+          Continuar
         </button>
       </form>
     </article>
@@ -345,7 +286,7 @@ function Field({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         required={required}
-        className="mt-1 w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm outline-none transition focus:border-primary"
+        className="mt-1 w-full rounded-full border border-input bg-background px-4 py-2.5 text-sm outline-none transition focus:border-primary"
       />
     </div>
   );
@@ -365,29 +306,21 @@ function LocationPicker({
   onChange: (estado: string, cidade: string) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const [step, setStep] = useState<"estado" | "cidade">("estado");
-  const [selectedEstado, setSelectedEstado] = useState<string | null>(estado || null);
-  const estados = Object.keys(LOCATIONS);
-  const cidades = selectedEstado ? LOCATIONS[selectedEstado] ?? [] : [];
-  const display = estado && cidade ? `${cidade} - ${estado}` : "Selecionar";
+  const [hoverEstado, setHoverEstado] = useState<string | null>(estado || null);
   const ref = useRef<HTMLDivElement>(null);
+
+  const estados = Object.keys(LOCATIONS);
+  const cidades = hoverEstado ? LOCATIONS[hoverEstado] ?? [] : [];
+  const display = estado && cidade ? `${cidade} - ${estado}` : "Selecionar";
 
   useEffect(() => {
     if (!open) return;
     function onClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     }
     document.addEventListener("mousedown", onClickOutside);
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, [open]);
-
-  function handleOpen() {
-    setSelectedEstado(estado || null);
-    setStep(estado ? "cidade" : "estado");
-    setOpen((v) => !v);
-  }
 
   return (
     <div className="relative" ref={ref}>
@@ -396,86 +329,75 @@ function LocationPicker({
       </label>
       <button
         type="button"
-        onClick={handleOpen}
+        onClick={() => {
+          setHoverEstado(estado || null);
+          setOpen((v) => !v);
+        }}
         className="mt-1 flex w-full items-center justify-between rounded-full border border-input bg-background px-4 py-2.5 text-left text-sm outline-none transition focus:border-primary"
       >
         <span className={estado && cidade ? "text-foreground" : "text-muted-foreground"}>
           {display}
         </span>
-        <ChevronRight
-          className={`h-4 w-4 text-muted-foreground transition ${open ? "rotate-90" : ""}`}
+        <ChevronDown
+          className={`h-4 w-4 text-muted-foreground transition ${open ? "rotate-180" : ""}`}
         />
       </button>
 
       {open && (
         <div
-          className="absolute left-0 right-0 top-full z-20 mt-2 overflow-hidden rounded-2xl border border-border bg-card"
+          className="absolute left-0 right-0 top-full z-20 mt-2 grid grid-cols-2 overflow-hidden rounded-2xl border border-border bg-card"
           style={{ boxShadow: "var(--shadow-card)" }}
         >
-          {/* Cabeçalho com passos */}
-          <div className="flex items-center gap-2 border-b border-border bg-muted/40 px-4 py-2.5 text-xs font-semibold text-muted-foreground">
-            {step === "cidade" && (
-              <button
-                type="button"
-                onClick={() => setStep("estado")}
-                className="mr-1 inline-flex items-center gap-1 text-primary hover:underline"
-              >
-                <ArrowLeft className="h-3.5 w-3.5" />
-                Voltar
-              </button>
-            )}
-            <span>
-              {step === "estado"
-                ? "Selecione o Estado (UF)"
-                : `Cidades em ${selectedEstado}`}
-            </span>
-          </div>
+          {/* Coluna Estados */}
+          <ul className="max-h-64 overflow-y-auto border-r border-border py-1">
+            {estados.map((uf) => {
+              const isActive = hoverEstado === uf;
+              return (
+                <li key={uf}>
+                  <button
+                    type="button"
+                    onMouseEnter={() => setHoverEstado(uf)}
+                    onClick={() => setHoverEstado(uf)}
+                    className={`flex w-full items-center justify-between px-4 py-2.5 text-sm transition hover:bg-muted ${
+                      isActive ? "font-bold text-primary" : "text-foreground"
+                    }`}
+                  >
+                    <span>{uf}</span>
+                    <ChevronRight className="h-4 w-4 opacity-60" />
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
 
+          {/* Coluna Cidades */}
           <ul className="max-h-64 overflow-y-auto py-1">
-            {step === "estado" &&
-              estados.map((uf) => {
-                const isSel = estado === uf;
-                return (
-                  <li key={uf}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedEstado(uf);
-                        setStep("cidade");
-                      }}
-                      className={`flex w-full items-center justify-between px-4 py-2.5 text-sm transition hover:bg-muted ${
-                        isSel ? "font-bold text-primary" : "text-foreground"
-                      }`}
-                    >
-                      <span>{uf}</span>
-                      <ChevronRight className="h-4 w-4 opacity-60" />
-                    </button>
-                  </li>
-                );
-              })}
-
-            {step === "cidade" &&
-              cidades.map((c) => {
-                const isSel = estado === selectedEstado && cidade === c;
-                return (
-                  <li key={c}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (selectedEstado) {
-                          onChange(selectedEstado, c);
-                          setOpen(false);
-                        }
-                      }}
-                      className={`flex w-full items-center px-4 py-2.5 text-sm transition hover:bg-muted ${
-                        isSel ? "font-bold text-primary" : "text-foreground"
-                      }`}
-                    >
-                      {c}
-                    </button>
-                  </li>
-                );
-              })}
+            {cidades.length === 0 && (
+              <li className="px-4 py-2.5 text-sm text-muted-foreground">
+                Selecione um estado
+              </li>
+            )}
+            {cidades.map((c) => {
+              const isSel = estado === hoverEstado && cidade === c;
+              return (
+                <li key={c}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (hoverEstado) {
+                        onChange(hoverEstado, c);
+                        setOpen(false);
+                      }
+                    }}
+                    className={`flex w-full items-center px-4 py-2.5 text-sm transition hover:bg-muted ${
+                      isSel ? "font-bold text-primary" : "text-foreground"
+                    }`}
+                  >
+                    {c}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

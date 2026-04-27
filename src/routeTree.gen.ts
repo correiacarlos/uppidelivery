@@ -14,6 +14,7 @@ import { Route as SejaEntregadorRouteImport } from './routes/seja-entregador'
 import { Route as EntregadoresRouteImport } from './routes/entregadores'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as ComoFuncionaRouteImport } from './routes/como-funciona'
+import { Route as CadastroEntregadorRouteImport } from './routes/cadastro-entregador'
 import { Route as CadastrarEstabelecimentoRouteImport } from './routes/cadastrar-estabelecimento'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -42,6 +43,11 @@ const ComoFuncionaRoute = ComoFuncionaRouteImport.update({
   path: '/como-funciona',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CadastroEntregadorRoute = CadastroEntregadorRouteImport.update({
+  id: '/cadastro-entregador',
+  path: '/cadastro-entregador',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CadastrarEstabelecimentoRoute =
   CadastrarEstabelecimentoRouteImport.update({
     id: '/cadastrar-estabelecimento',
@@ -57,6 +63,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cadastrar-estabelecimento': typeof CadastrarEstabelecimentoRoute
+  '/cadastro-entregador': typeof CadastroEntregadorRoute
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastrar-estabelecimento': typeof CadastrarEstabelecimentoRoute
+  '/cadastro-entregador': typeof CadastroEntregadorRoute
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cadastrar-estabelecimento': typeof CadastrarEstabelecimentoRoute
+  '/cadastro-entregador': typeof CadastroEntregadorRoute
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cadastrar-estabelecimento'
+    | '/cadastro-entregador'
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/cadastrar-estabelecimento'
+    | '/cadastro-entregador'
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/cadastrar-estabelecimento'
+    | '/cadastro-entregador'
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
@@ -115,6 +127,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CadastrarEstabelecimentoRoute: typeof CadastrarEstabelecimentoRoute
+  CadastroEntregadorRoute: typeof CadastroEntregadorRoute
   ComoFuncionaRoute: typeof ComoFuncionaRoute
   ContatoRoute: typeof ContatoRoute
   EntregadoresRoute: typeof EntregadoresRoute
@@ -159,6 +172,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComoFuncionaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cadastro-entregador': {
+      id: '/cadastro-entregador'
+      path: '/cadastro-entregador'
+      fullPath: '/cadastro-entregador'
+      preLoaderRoute: typeof CadastroEntregadorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cadastrar-estabelecimento': {
       id: '/cadastrar-estabelecimento'
       path: '/cadastrar-estabelecimento'
@@ -179,6 +199,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CadastrarEstabelecimentoRoute: CadastrarEstabelecimentoRoute,
+  CadastroEntregadorRoute: CadastroEntregadorRoute,
   ComoFuncionaRoute: ComoFuncionaRoute,
   ContatoRoute: ContatoRoute,
   EntregadoresRoute: EntregadoresRoute,
