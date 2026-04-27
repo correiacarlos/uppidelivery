@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import courierBg from "@/assets/courier-bg.jpg";
-import uppiLogo from "@/assets/uppi-logo.png";
+import courierEarnings from "@/assets/courier-earnings.jpg";
+import courierFlexible from "@/assets/courier-flexible.jpg";
 
 export const Route = createFileRoute("/seja-entregador")({
   head: () => ({
@@ -25,47 +26,104 @@ export const Route = createFileRoute("/seja-entregador")({
 
 function Page() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[oklch(0.18_0.02_155)] text-white">
-      {/* Imagem de fundo desfocada */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${courierBg})`,
-          filter: "blur(10px) brightness(0.5)",
-          transform: "scale(1.1)",
-          opacity: 0.45,
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10"
-        style={{
-          background:
-            "linear-gradient(180deg, oklch(0.22 0.05 155 / 0.85) 0%, oklch(0.18 0.02 155 / 0.95) 100%)",
-        }}
-      />
+    <main className="bg-background">
+      {/* Topo: fundo verde com imagem desfocada e dois cards */}
+      <section className="relative overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${courierBg})`,
+            filter: "blur(8px) brightness(0.55)",
+            transform: "scale(1.1)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, oklch(0.22 0.05 155 / 0.85) 0%, oklch(0.18 0.02 155 / 0.92) 100%)",
+          }}
+        />
 
-      {/* Topo com logo */}
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <Link to="/" className="flex items-center gap-2" aria-label="UPPI início">
-          <img src={uppiLogo} alt="UPPI" className="h-auto w-[140px] object-contain" />
-        </Link>
-        <Link
-          to="/entregadores"
-          className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Voltar
-        </Link>
-      </header>
+        <div className="relative mx-auto max-w-6xl px-6 pt-6">
+          <Link
+            to="/entregadores"
+            className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Voltar
+          </Link>
+        </div>
 
-      {/* Conteúdo principal */}
-      <section className="mx-auto grid max-w-6xl gap-6 px-6 pb-20 pt-6 md:grid-cols-2 md:gap-8 md:pt-10">
-        <RequirementsCard />
-        <CadastroCard />
+        <div className="relative mx-auto grid max-w-6xl gap-6 px-6 pb-16 pt-6 md:grid-cols-2 md:gap-8 md:pt-8">
+          <RequirementsCard />
+          <CadastroCard />
+        </div>
+      </section>
+
+      {/* Seção: Vantagens */}
+      <section className="bg-background py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="text-center font-display text-3xl font-black text-foreground sm:text-5xl">
+            Vantagens de entregar com a UPPI
+          </h2>
+
+          <div className="mt-10 grid gap-8 md:grid-cols-2">
+            <AdvantageCard
+              image={courierEarnings}
+              title="Ganhe mais a cada pedido!"
+              items={[
+                "Transforme seu tempo em dinheiro: quanto mais você entrega, mais você ganha. Simples assim.",
+                "Taxas competitivas",
+                "Ganhos turbinados nos horários de pico",
+                "Convide sua rede e curta incentivos por indicação",
+              ]}
+            />
+            <AdvantageCard
+              image={courierFlexible}
+              title="Online à qualquer hora!"
+              items={[
+                "Controle total: entregue a qualquer hora, em qualquer dia – a escolha é sua! Perfeito para estudantes, pais, freelancers ou qualquer pessoa que queira mais flexibilidade.",
+                "No seu ritmo — você decide quando ficar online",
+                "Sem horas mínimas, sem pressão",
+                "Cadastro fácil — comece sem experiência",
+              ]}
+            />
+          </div>
+        </div>
       </section>
     </main>
+  );
+}
+
+function AdvantageCard({
+  image,
+  title,
+  items,
+}: {
+  image: string;
+  title: string;
+  items: string[];
+}) {
+  return (
+    <article className="overflow-hidden">
+      <div className="overflow-hidden rounded-2xl">
+        <img src={image} alt={title} className="h-64 w-full object-cover sm:h-72" />
+      </div>
+      <h3 className="mt-6 font-display text-2xl font-black text-foreground sm:text-3xl">
+        {title}
+      </h3>
+      <ul className="mt-4 space-y-2 text-sm text-muted-foreground sm:text-base">
+        {items.map((it) => (
+          <li key={it} className="flex gap-2">
+            <span className="mt-2 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            <span>{it}</span>
+          </li>
+        ))}
+      </ul>
+    </article>
   );
 }
 
