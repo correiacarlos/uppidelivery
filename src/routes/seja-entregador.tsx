@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import courierBg from "@/assets/courier-bg.jpg";
 import uppiLogo from "@/assets/uppi-logo.png";
@@ -307,20 +307,38 @@ function LocationPicker({
   onChange: (estado: string, cidade: string) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const [hoverEstado, setHoverEstado] = useState<string | null>(null);
+  const [step, setStep] = useState<"estado" | "cidade">("estado");
+  const [selectedEstado, setSelectedEstado] = useState<string | null>(estado || null);
   const estados = Object.keys(LOCATIONS);
-  const activeEstado = hoverEstado ?? estado ?? null;
-  const cidades = activeEstado ? LOCATIONS[activeEstado] ?? [] : [];
+  const cidades = selectedEstado ? LOCATIONS[selectedEstado] ?? [] : [];
   const display = estado && cidade ? `${cidade} - ${estado}` : "Selecionar";
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function onClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, [open]);
+
+  function handleOpen() {
+    setSelectedEstado(estado || null);
+    setStep(estado ? "cidade" : "estado");
+    setOpen((v) => !v);
+  }
 
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <label className="text-sm font-semibold">
         Localização <span className="text-primary">*</span>
       </label>
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={handleOpen}
         className="mt-1 flex w-full items-center justify-between rounded-full border border-input bg-background px-4 py-2.5 text-left text-sm outline-none transition focus:border-primary"
       >
         <span className={estado && cidade ? "text-foreground" : "text-muted-foreground"}>
@@ -332,25 +350,43 @@ function LocationPicker({
       </button>
 
       {open && (
-        <div className="absolute left-0 right-0 top-full z-20 mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {/* Coluna Estados */}
-          <div
-            className="overflow-hidden rounded-2xl border border-border bg-card"
-            style={{ boxShadow: "var(--shadow-card)" }}
-          >
-            <ul className="max-h-64 overflow-y-auto py-1">
-              {estados.map((uf) => {
-                const isActive = activeEstado === uf;
+        <div
+          className="absolute left-0 right-0 top-full z-20 mt-2 overflow-hidden rounded-2xl border border-border bg-card"
+          style={{ boxShadow: "var(--shadow-card)" }}
+        >
+          {/* Cabeçalho com passos */}
+          <div className="flex items-center gap-2 border-b border-border bg-muted/40 px-4 py-2.5 text-xs font-semibold text-muted-foreground">
+            {step === "cidade" && (
+              <button
+                type="button"
+                onClick={() => setStep("estado")}
+                className="mr-1 inline-flex items-center gap-1 text-primary hover:underline"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                Voltar
+              </button>
+            )}
+            <span>
+              {step === "estado"
+                ? "Selecione o Estado (UF)"
+                : `Cidades em ${selectedEstado}`}
+            </span>
+          </div>
+
+          <ul className="max-h-64 overflow-y-auto py-1">
+            {step === "estado" &&
+              estados.map((uf) => {
+                const isSel = estado === uf;
                 return (
                   <li key={uf}>
                     <button
                       type="button"
-                      onMouseEnter={() => setHoverEstado(uf)}
-                      onClick={() => setHoverEstado(uf)}
-                      className={`flex w-full items-center justify-between px-4 py-2.5 text-sm transition ${
-                        isActive
-                          ? "font-bold text-primary"
-                          : "text-foreground hover:bg-muted"
+                      onClick={() => {
+                        setSelectedEstado(uf);
+                        setStep("cidade");
+                      }}
+                      className={`flex w-full items-center justify-between px-4 py-2.5 text-sm transition hover:bg-muted ${
+                        isSel ? "font-bold text-primary" : "text-foreground"
                       }`}
                     >
                       <span>{uf}</span>
@@ -359,41 +395,30 @@ function LocationPicker({
                   </li>
                 );
               })}
-            </ul>
-          </div>
 
-          {/* Coluna Cidades */}
-          {activeEstado && (
-            <div
-              className="overflow-hidden rounded-2xl border border-border bg-card"
-              style={{ boxShadow: "var(--shadow-card)" }}
-            >
-              <ul className="max-h-64 overflow-y-auto py-1">
-                {cidades.map((c) => {
-                  const isSel = estado === activeEstado && cidade === c;
-                  return (
-                    <li key={c}>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          onChange(activeEstado, c);
+            {step === "cidade" &&
+              cidades.map((c) => {
+                const isSel = estado === selectedEstado && cidade === c;
+                return (
+                  <li key={c}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (selectedEstado) {
+                          onChange(selectedEstado, c);
                           setOpen(false);
-                          setHoverEstado(null);
-                        }}
-                        className={`flex w-full items-center px-4 py-2.5 text-sm transition ${
-                          isSel
-                            ? "font-bold text-primary"
-                            : "text-foreground hover:bg-muted"
-                        }`}
-                      >
-                        {c}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
+                        }
+                      }}
+                      className={`flex w-full items-center px-4 py-2.5 text-sm transition hover:bg-muted ${
+                        isSel ? "font-bold text-primary" : "text-foreground"
+                      }`}
+                    >
+                      {c}
+                    </button>
+                  </li>
+                );
+              })}
+          </ul>
         </div>
       )}
     </div>
