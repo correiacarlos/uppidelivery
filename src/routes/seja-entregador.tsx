@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import courierBg from "@/assets/courier-bg.jpg";
 import uppiLogo from "@/assets/uppi-logo.png";
