@@ -26,9 +26,14 @@ export const Route = createFileRoute("/login-estabelecimento")({
 function LoginEstabelecimento() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [accepted, setAccepted] = useState(false);
+
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const canSubmit = isEmailValid && accepted;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!canSubmit) return;
     navigate({ to: "/cadastrar-estabelecimento" });
   };
 
@@ -66,7 +71,7 @@ function LoginEstabelecimento() {
       <main className="relative z-10 flex items-center justify-center px-4 pb-32 pt-8 sm:justify-start sm:px-20 sm:pt-16">
         <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl sm:p-10">
           <h1 className="text-2xl font-semibold text-foreground">
-            Entre ou cadastre-se
+            Cadastre-se
           </h1>
           <form onSubmit={handleSubmit} className="mt-6 space-y-5">
             <input
@@ -79,12 +84,24 @@ function LoginEstabelecimento() {
             />
             <button
               type="submit"
-              className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-bold text-primary-foreground shadow-md transition hover:bg-primary-dark"
+              disabled={!canSubmit}
+              className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-bold text-primary-foreground shadow-md transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-primary"
             >
               Continuar
             </button>
-            <p className="flex items-start gap-2 text-xs text-muted-foreground">
-              <span className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+            <button
+              type="button"
+              onClick={() => isEmailValid && setAccepted((v) => !v)}
+              disabled={!isEmailValid}
+              className="flex w-full items-start gap-2 text-left text-xs text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <span
+                className={`mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold transition ${
+                  accepted
+                    ? "bg-primary text-primary-foreground"
+                    : "border border-muted-foreground/40 bg-transparent text-transparent"
+                }`}
+              >
                 ✓
               </span>
               <span>
@@ -94,7 +111,7 @@ function LoginEstabelecimento() {
                 </a>
                 .
               </span>
-            </p>
+            </button>
           </form>
         </div>
       </main>
