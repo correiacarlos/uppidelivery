@@ -1,8 +1,6 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Map, Globe } from "lucide-react";
 import foodBg from "@/assets/food-background.jpg";
-import uppiLogo from "@/assets/uppi-logo-text.png";
 
 export const Route = createFileRoute("/login-estabelecimento")({
   head: () => ({
@@ -42,32 +40,6 @@ function LoginEstabelecimento() {
       className="relative min-h-screen w-full bg-cover bg-center"
       style={{ backgroundImage: `url(${foodBg})` }}
     >
-      <header className="relative z-10 flex items-center justify-between px-6 py-5 sm:px-10">
-        <Link to="/" aria-label="UPPI">
-          <img
-            src={uppiLogo}
-            alt="UPPI"
-            className="h-10 w-auto drop-shadow-lg sm:h-12"
-          />
-        </Link>
-        <div className="flex items-center gap-5 text-sm font-medium text-white drop-shadow">
-          <button
-            type="button"
-            className="flex items-center gap-1.5 hover:opacity-80"
-          >
-            <Map className="h-4 w-4" /> Brasil
-            <span className="text-xs">▾</span>
-          </button>
-          <button
-            type="button"
-            className="flex items-center gap-1.5 hover:opacity-80"
-          >
-            <Globe className="h-4 w-4" /> Português
-            <span className="text-xs">▾</span>
-          </button>
-        </div>
-      </header>
-
       <main className="relative z-10 flex items-center justify-center px-4 pb-32 pt-8 sm:justify-start sm:px-20 sm:pt-16">
         <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl sm:p-10">
           <h1 className="text-2xl font-semibold text-foreground">
