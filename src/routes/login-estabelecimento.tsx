@@ -87,23 +87,6 @@ function LoginEstabelecimento() {
           </form>
         </div>
       </main>
-
-      <footer className="absolute bottom-0 left-0 right-0 z-10 bg-white/95 px-6 py-4 backdrop-blur sm:px-10">
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
-          <a href="#" className="underline hover:text-foreground">
-            Se precisar de colaboração da API, clique em
-          </a>
-          <span className="hidden sm:inline">|</span>
-          <a href="#" className="hover:text-foreground">
-            Política de Privacidade
-          </a>
-          <span className="hidden sm:inline">|</span>
-          <a href="#" className="hover:text-foreground">
-            Gerenciar cookies
-          </a>
-        </div>
-        <p className="mt-2 text-xs text-muted-foreground">© 2026 UPPI</p>
-      </footer>
     </div>
   );
 }
