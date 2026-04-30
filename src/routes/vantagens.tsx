@@ -80,7 +80,6 @@ function Page() {
         <div className="relative mt-16 grid gap-8 sm:grid-cols-2">
           {cards.map((c) => {
             const isHovered = hovered === c.key;
-            const isDimmed = hovered !== null && !isHovered;
             return (
               <div
                 key={c.key}
@@ -88,7 +87,7 @@ function Page() {
                 onMouseLeave={() => setHovered(null)}
                 className={`relative overflow-visible rounded-2xl bg-primary px-6 pb-6 pt-8 text-left shadow-lg transition-all duration-300 ${
                   isHovered ? "scale-[1.03] shadow-2xl ring-4 ring-primary/30" : ""
-                } ${isDimmed ? "opacity-60" : ""}`}
+                }`}
               >
                 {/* Floating arts on the sides (only on hover) */}
                 <img
