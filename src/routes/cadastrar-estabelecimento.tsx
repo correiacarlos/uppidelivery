@@ -140,7 +140,11 @@ function Chip({
 
 function CadastrarEstabelecimento() {
   const navigate = useNavigate();
-  const [segmentos, setSegmentos] = useState<string[]>([]);
+  const { categoria } = Route.useSearch();
+  const initialSegmentos = categoria && (SEGMENTOS as readonly string[]).includes(categoria)
+    ? [categoria]
+    : [];
+  const [segmentos, setSegmentos] = useState<string[]>(initialSegmentos);
   const [horarios, setHorarios] = useState<Record<string, DiaState>>(() =>
     Object.fromEntries(DIAS.map((d) => [d, { aberto: false, abre: "", fecha: "" }])),
   );
