@@ -3,8 +3,6 @@ import { useState } from "react";
 import burgerImg from "@/assets/burger-card.png";
 import basketImg from "@/assets/basket-card.png";
 import floatBurger from "@/assets/floating-burger-ingredients.png";
-import floatPizza from "@/assets/floating-pizza-drink.png";
-import floatMarketL from "@/assets/floating-market-left.png";
 import floatMarketR from "@/assets/floating-market-right.png";
 
 export const Route = createFileRoute("/vantagens")({
@@ -29,14 +27,12 @@ function Page() {
       img: burgerImg,
       alt: "Hambúrguer",
       leftArt: floatBurger,
-      rightArt: floatPizza,
     },
     {
       key: "multi" as const,
       title: "Multicategorias",
       img: basketImg,
       alt: "Cesta de mercado",
-      leftArt: floatMarketL,
       rightArt: floatMarketR,
     },
   ];
@@ -81,6 +77,7 @@ function Page() {
         <div className="relative mt-16 grid gap-8 sm:grid-cols-2">
           {cards.map((c) => {
             const isHovered = hovered === c.key;
+            const showArts = hovered !== null;
             return (
               <div
                 key={c.key}
@@ -94,29 +91,33 @@ function Page() {
                       : ""
                 }`}
               >
-                {/* Floating arts on the sides (only on hover) */}
-                <img
-                  src={c.leftArt}
-                  alt=""
-                  aria-hidden
-                  loading="lazy"
-                  width={512}
-                  height={512}
-                  className={`pointer-events-none absolute -left-24 top-1/2 hidden h-40 w-40 -translate-y-1/2 object-contain transition-all duration-500 sm:block ${
-                    isHovered ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
-                  }`}
-                />
-                <img
-                  src={c.rightArt}
-                  alt=""
-                  aria-hidden
-                  loading="lazy"
-                  width={512}
-                  height={512}
-                  className={`pointer-events-none absolute -right-24 top-1/2 hidden h-40 w-40 -translate-y-1/2 object-contain transition-all duration-500 sm:block ${
-                    isHovered ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
-                  }`}
-                />
+                {/* Floating art: only the outer side of each card (left of Restaurantes, right of Multicategorias) */}
+                {c.leftArt && (
+                  <img
+                    src={c.leftArt}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    width={512}
+                    height={512}
+                    className={`pointer-events-none absolute -left-24 top-1/2 hidden h-40 w-40 -translate-y-1/2 object-contain transition-all duration-500 sm:block ${
+                      showArts ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
+                    }`}
+                  />
+                )}
+                {c.rightArt && (
+                  <img
+                    src={c.rightArt}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    width={512}
+                    height={512}
+                    className={`pointer-events-none absolute -right-24 top-1/2 hidden h-40 w-40 -translate-y-1/2 object-contain transition-all duration-500 sm:block ${
+                      showArts ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
+                    }`}
+                  />
+                )}
 
                 {/* Main card image */}
                 <img
