@@ -3,6 +3,9 @@ import { useState } from "react";
 import { ArrowLeft, MapPin, Clock, CreditCard } from "lucide-react";
 
 export const Route = createFileRoute("/cadastrar-estabelecimento")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    categoria: typeof search.categoria === "string" ? search.categoria : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Cadastrar Estabelecimento – UPPI" },
