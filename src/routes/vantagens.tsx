@@ -3,8 +3,6 @@ import { useState } from "react";
 import burgerImg from "@/assets/burger-card.png";
 import basketImg from "@/assets/basket-card.png";
 import floatBurger from "@/assets/floating-burger-ingredients.png";
-import floatPizza from "@/assets/floating-pizza-drink.png";
-import floatMarketL from "@/assets/floating-market-left.png";
 import floatMarketR from "@/assets/floating-market-right.png";
 
 export const Route = createFileRoute("/vantagens")({
