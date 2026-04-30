@@ -40,7 +40,7 @@ function LoginEstabelecimento() {
       className="relative min-h-screen w-full bg-cover bg-center"
       style={{ backgroundImage: `url(${foodBg})` }}
     >
-      <main className="relative z-10 flex items-center justify-center px-4 pb-32 pt-8 sm:justify-start sm:px-20 sm:pt-16">
+      <main className="relative z-10 flex items-end justify-center px-4 pb-12 pt-32 sm:justify-start sm:px-20 sm:pb-20 sm:pt-64">
         <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl sm:p-10">
           <h1 className="text-2xl font-semibold text-foreground">
             Cadastre-se
