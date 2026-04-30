@@ -32,7 +32,7 @@ function LoginEstabelecimento() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!canSubmit) return;
-    navigate({ to: "/cadastrar-estabelecimento" });
+    navigate({ to: "/cadastrar-estabelecimento", search: {} });
   };
 
   return (
