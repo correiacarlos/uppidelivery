@@ -1,6 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import burgerImg from "@/assets/burger-card.png";
 import basketImg from "@/assets/basket-card.png";
+import floatBurger from "@/assets/floating-burger-ingredients.png";
+import floatPizza from "@/assets/floating-pizza-drink.png";
+import floatMarketL from "@/assets/floating-market-left.png";
+import floatMarketR from "@/assets/floating-market-right.png";
 
 export const Route = createFileRoute("/vantagens")({
   head: () => ({
@@ -15,12 +20,55 @@ export const Route = createFileRoute("/vantagens")({
 });
 
 function Page() {
+  const [hovered, setHovered] = useState<"rest" | "multi" | null>(null);
+
   const cards = [
-    { title: "Restaurantes", img: burgerImg, alt: "Hambúrguer" },
-    { title: "Multicategorias", img: basketImg, alt: "Cesta de mercado" },
+    {
+      key: "rest" as const,
+      title: "Restaurantes",
+      img: burgerImg,
+      alt: "Hambúrguer",
+      leftArt: floatBurger,
+      rightArt: floatPizza,
+    },
+    {
+      key: "multi" as const,
+      title: "Multicategorias",
+      img: basketImg,
+      alt: "Cesta de mercado",
+      leftArt: floatMarketL,
+      rightArt: floatMarketR,
+    },
   ];
+
+  const restaurantesCats = [
+    "Brasileira",
+    "Doces e bolos",
+    "Lanches",
+    "Açaí",
+    "Marmita",
+    "Pizzarias",
+    "Salgados",
+    "Saudável",
+    "Sorvetes",
+    "Japonesa",
+  ];
+  const multiCats = [
+    "Mercado",
+    "Farmácia",
+    "Bebidas",
+    "Pet Shop",
+    "Padaria",
+    "Açougue",
+    "Conveniência",
+    "Floricultura",
+    "Papelaria",
+    "Presentes",
+  ];
+  const activeCats = hovered === "multi" ? multiCats : restaurantesCats;
+
   return (
-    <section className="bg-secondary/40 py-16 sm:py-24">
+    <section className="overflow-hidden bg-secondary/40 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-6 text-center">
         <h1 className="text-3xl font-black text-foreground sm:text-5xl">
           Cadastre sua loja e comece a vender no UPPI
@@ -29,33 +77,85 @@ function Page() {
           Tem UPPI para todo tipo de negócio, inclusive o seu
         </p>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2">
-          {cards.map((c) => (
-            <div
-              key={c.title}
-              className="relative overflow-visible rounded-2xl bg-primary px-6 pb-6 pt-8 text-left shadow-lg"
-            >
-              <img
-                src={c.img}
-                alt={c.alt}
-                loading="lazy"
-                width={768}
-                height={768}
-                className="pointer-events-none absolute -top-10 right-2 h-40 w-40 object-contain sm:-top-14 sm:right-4 sm:h-52 sm:w-52"
-              />
-              <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">
-                {c.title}
-              </h2>
-              <div className="mt-20 sm:mt-24">
-                <Link
-                  to="/login-estabelecimento"
-                  className="inline-flex items-center justify-center rounded-full bg-white px-6 py-2.5 text-sm font-bold text-primary transition hover:bg-white/90"
-                >
-                  Cadastrar agora
-                </Link>
+        <div className="relative mt-16 grid gap-8 sm:grid-cols-2">
+          {cards.map((c) => {
+            const isHovered = hovered === c.key;
+            const isDimmed = hovered !== null && !isHovered;
+            return (
+              <div
+                key={c.key}
+                onMouseEnter={() => setHovered(c.key)}
+                onMouseLeave={() => setHovered(null)}
+                className={`relative overflow-visible rounded-2xl bg-primary px-6 pb-6 pt-8 text-left shadow-lg transition-all duration-300 ${
+                  isHovered ? "scale-[1.03] shadow-2xl ring-4 ring-primary/30" : ""
+                } ${isDimmed ? "opacity-60" : ""}`}
+              >
+                {/* Floating arts on the sides (only on hover) */}
+                <img
+                  src={c.leftArt}
+                  alt=""
+                  aria-hidden
+                  loading="lazy"
+                  width={512}
+                  height={512}
+                  className={`pointer-events-none absolute -left-24 top-1/2 hidden h-40 w-40 -translate-y-1/2 object-contain transition-all duration-500 sm:block ${
+                    isHovered ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
+                  }`}
+                />
+                <img
+                  src={c.rightArt}
+                  alt=""
+                  aria-hidden
+                  loading="lazy"
+                  width={512}
+                  height={512}
+                  className={`pointer-events-none absolute -right-24 top-1/2 hidden h-40 w-40 -translate-y-1/2 object-contain transition-all duration-500 sm:block ${
+                    isHovered ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
+                  }`}
+                />
+
+                {/* Main card image */}
+                <img
+                  src={c.img}
+                  alt={c.alt}
+                  loading="lazy"
+                  width={768}
+                  height={768}
+                  className={`pointer-events-none absolute -top-10 right-2 h-40 w-40 object-contain transition-transform duration-300 sm:-top-14 sm:right-4 sm:h-52 sm:w-52 ${
+                    isHovered ? "-rotate-3 scale-110" : ""
+                  }`}
+                />
+                <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">
+                  {c.title}
+                </h2>
+                <div className="mt-20 sm:mt-24">
+                  <Link
+                    to="/login-estabelecimento"
+                    className="inline-flex items-center justify-center rounded-full bg-white px-6 py-2.5 text-sm font-bold text-primary transition hover:bg-white/90"
+                  >
+                    Cadastrar agora
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
+        </div>
+
+        {/* Suggestions / segments */}
+        <div className="mt-20">
+          <p className="text-base text-muted-foreground sm:text-lg">
+            Ideal para qualquer tamanho e segmento
+          </p>
+          <div className="mx-auto mt-6 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-5">
+            {activeCats.map((cat) => (
+              <div
+                key={cat}
+                className="flex items-center justify-center rounded-xl bg-primary/10 px-4 py-3 text-sm font-bold text-primary transition hover:bg-primary/20"
+              >
+                {cat}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
