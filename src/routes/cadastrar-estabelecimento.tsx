@@ -3,6 +3,9 @@ import { useState } from "react";
 import { ArrowLeft, MapPin, Clock, CreditCard } from "lucide-react";
 
 export const Route = createFileRoute("/cadastrar-estabelecimento")({
+  validateSearch: (search: Record<string, unknown>): { categoria?: string } => ({
+    categoria: typeof search.categoria === "string" ? search.categoria : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Cadastrar Estabelecimento – UPPI" },
@@ -137,7 +140,11 @@ function Chip({
 
 function CadastrarEstabelecimento() {
   const navigate = useNavigate();
-  const [segmentos, setSegmentos] = useState<string[]>([]);
+  const { categoria } = Route.useSearch();
+  const initialSegmentos = categoria && (SEGMENTOS as readonly string[]).includes(categoria)
+    ? [categoria]
+    : [];
+  const [segmentos, setSegmentos] = useState<string[]>(initialSegmentos);
   const [horarios, setHorarios] = useState<Record<string, DiaState>>(() =>
     Object.fromEntries(DIAS.map((d) => [d, { aberto: false, abre: "", fecha: "" }])),
   );

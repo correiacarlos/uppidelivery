@@ -41,29 +41,30 @@ function Page() {
     },
   ];
 
-  const restaurantesCats = [
-    "Brasileira",
-    "Doces e bolos",
-    "Lanches",
-    "Açaí",
-    "Marmita",
-    "Pizzarias",
-    "Salgados",
-    "Saudável",
-    "Sorvetes",
-    "Japonesa",
+  // label exibido -> valor enviado como categoria pré-selecionada no cadastro
+  const restaurantesCats: { label: string; value: string }[] = [
+    { label: "Brasileira", value: "Restaurante" },
+    { label: "Doces e bolos", value: "Doceria" },
+    { label: "Lanches", value: "Lanchonete" },
+    { label: "Açaí", value: "Açaí" },
+    { label: "Marmita", value: "Restaurante" },
+    { label: "Pizzarias", value: "Pizzaria" },
+    { label: "Salgados", value: "Lanchonete" },
+    { label: "Saudável", value: "Restaurante" },
+    { label: "Sorvetes", value: "Doceria" },
+    { label: "Japonesa", value: "Sushi" },
   ];
-  const multiCats = [
-    "Mercado",
-    "Farmácia",
-    "Bebidas",
-    "Pet Shop",
-    "Padaria",
-    "Açougue",
-    "Conveniência",
-    "Floricultura",
-    "Papelaria",
-    "Presentes",
+  const multiCats: { label: string; value: string }[] = [
+    { label: "Mercado", value: "Mercado" },
+    { label: "Farmácia", value: "Farmácia" },
+    { label: "Bebidas", value: "Bebidas" },
+    { label: "Pet Shop", value: "Pet Shop" },
+    { label: "Padaria", value: "Padaria" },
+    { label: "Açougue", value: "Açougue" },
+    { label: "Conveniência", value: "Mercado" },
+    { label: "Floricultura", value: "Arte & Decoração" },
+    { label: "Papelaria", value: "Papelaria" },
+    { label: "Presentes", value: "Arte & Decoração" },
   ];
   const activeCats = hovered === "multi" ? multiCats : restaurantesCats;
 
@@ -86,7 +87,11 @@ function Page() {
                 onMouseEnter={() => setHovered(c.key)}
                 onMouseLeave={() => setHovered(null)}
                 className={`relative overflow-visible rounded-2xl bg-primary px-6 pb-6 pt-8 text-left shadow-lg transition-all duration-300 ${
-                  isHovered ? "scale-[1.03] shadow-2xl ring-4 ring-primary/30" : ""
+                  isHovered
+                    ? "scale-[1.03] shadow-2xl ring-4 ring-primary/30"
+                    : hovered
+                      ? "opacity-50 brightness-75"
+                      : ""
                 }`}
               >
                 {/* Floating arts on the sides (only on hover) */}
@@ -152,12 +157,14 @@ function Page() {
           </p>
           <div className="mx-auto mt-6 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-5">
             {activeCats.map((cat) => (
-              <div
-                key={cat}
+              <Link
+                key={cat.label}
+                to="/cadastrar-estabelecimento"
+                search={{ categoria: cat.value }}
                 className="flex items-center justify-center rounded-xl bg-primary/10 px-4 py-3 text-sm font-bold text-primary transition hover:bg-primary/20"
               >
-                {cat}
-              </div>
+                {cat.label}
+              </Link>
             ))}
           </div>
         </div>
