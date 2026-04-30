@@ -140,8 +140,13 @@ function Page() {
           })}
         </div>
 
-        {/* Suggestions / segments */}
-        <div className="mt-20">
+        {/* Suggestions / segments — only visible on hover */}
+        <div
+          className={`mt-20 transition-opacity duration-300 ${
+            hovered ? "opacity-100" : "pointer-events-none opacity-0"
+          }`}
+          aria-hidden={!hovered}
+        >
           <p className="text-base text-muted-foreground sm:text-lg">
             Ideal para qualquer tamanho e segmento
           </p>
