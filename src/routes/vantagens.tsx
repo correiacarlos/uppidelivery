@@ -27,14 +27,14 @@ function Page() {
       img: burgerImg,
       alt: "Hambúrguer",
       leftArt: floatBurger,
-      rightArt: floatMarketR,
+      rightArt: floatBurger,
     },
     {
       key: "multi" as const,
       title: "Multicategorias",
       img: basketImg,
       alt: "Cesta de mercado",
-      leftArt: floatBurger,
+      leftArt: floatMarketR,
       rightArt: floatMarketR,
     },
   ];
@@ -79,7 +79,7 @@ function Page() {
         <div className="relative mt-16 grid gap-8 sm:grid-cols-2">
           {cards.map((c) => {
             const isHovered = hovered === c.key;
-            const showArts = hovered !== null;
+            const showArts = isHovered;
             return (
               <div
                 key={c.key}
