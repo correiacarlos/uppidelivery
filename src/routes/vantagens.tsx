@@ -128,7 +128,7 @@ function Page() {
                       loading="lazy"
                       width={512}
                       height={512}
-                      className={`pointer-events-none absolute ${positionClass} hidden h-28 w-28 object-contain transition-all duration-500 sm:block ${
+                      className={`pointer-events-none absolute ${positionClass} hidden h-36 w-36 object-contain transition-all duration-500 sm:block ${
                         showArts
                           ? "translate-x-0 opacity-100"
                           : isLeft
