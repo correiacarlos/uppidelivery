@@ -4,6 +4,10 @@ import burgerImg from "@/assets/burger-card.png";
 import basketImg from "@/assets/basket-card.png";
 import floatBurger from "@/assets/floating-burger-ingredients.png";
 import floatMarketR from "@/assets/floating-market-right.png";
+import floatPetshop from "@/assets/floating-petshop.png";
+import floatPapelaria from "@/assets/floating-papelaria.png";
+import floatFarmacia from "@/assets/floating-farmacia.png";
+import floatPresentes from "@/assets/floating-presentes.png";
 
 export const Route = createFileRoute("/vantagens")({
   head: () => ({
@@ -26,16 +30,25 @@ function Page() {
       title: "Restaurantes",
       img: burgerImg,
       alt: "Hambúrguer",
-      leftArt: floatBurger,
-      rightArt: floatBurger,
+      arts: [
+        { src: floatBurger, pos: "left-top" },
+        { src: floatBurger, pos: "left-bottom" },
+        { src: floatBurger, pos: "right-top" },
+        { src: floatBurger, pos: "right-bottom" },
+      ],
     },
     {
       key: "multi" as const,
       title: "Multicategorias",
       img: basketImg,
       alt: "Cesta de mercado",
-      leftArt: floatMarketR,
-      rightArt: floatMarketR,
+      arts: [
+        { src: floatPetshop, pos: "left-top" },
+        { src: floatFarmacia, pos: "left-bottom" },
+        { src: floatPapelaria, pos: "right-top" },
+        { src: floatPresentes, pos: "right-bottom" },
+        { src: floatMarketR, pos: "right-mid" },
+      ],
     },
   ];
 
@@ -93,33 +106,39 @@ function Page() {
                       : ""
                 }`}
               >
-                {/* Floating art: only the outer side of each card (left of Restaurantes, right of Multicategorias) */}
-                {c.leftArt && (
-                  <img
-                    src={c.leftArt}
-                    alt=""
-                    aria-hidden
-                    loading="lazy"
-                    width={512}
-                    height={512}
-                    className={`pointer-events-none absolute -left-24 top-1/2 hidden h-40 w-40 -translate-y-1/2 object-contain transition-all duration-500 sm:block ${
-                      showArts ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
-                    }`}
-                  />
-                )}
-                {c.rightArt && (
-                  <img
-                    src={c.rightArt}
-                    alt=""
-                    aria-hidden
-                    loading="lazy"
-                    width={512}
-                    height={512}
-                    className={`pointer-events-none absolute -right-24 top-1/2 hidden h-40 w-40 -translate-y-1/2 object-contain transition-all duration-500 sm:block ${
-                      showArts ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
-                    }`}
-                  />
-                )}
+                {/* Floating arts: themed clusters around each card on hover */}
+                {c.arts.map((art, i) => {
+                  const isLeft = art.pos.startsWith("left");
+                  const positionClass =
+                    art.pos === "left-top"
+                      ? "-left-20 top-2"
+                      : art.pos === "left-bottom"
+                        ? "-left-20 bottom-2"
+                        : art.pos === "right-top"
+                          ? "-right-20 top-2"
+                          : art.pos === "right-bottom"
+                            ? "-right-20 bottom-2"
+                            : "-right-24 top-1/2 -translate-y-1/2";
+                  return (
+                    <img
+                      key={i}
+                      src={art.src}
+                      alt=""
+                      aria-hidden
+                      loading="lazy"
+                      width={512}
+                      height={512}
+                      className={`pointer-events-none absolute ${positionClass} hidden h-28 w-28 object-contain transition-all duration-500 sm:block ${
+                        showArts
+                          ? "translate-x-0 opacity-100"
+                          : isLeft
+                            ? "translate-x-8 opacity-0"
+                            : "-translate-x-8 opacity-0"
+                      }`}
+                      style={{ transitionDelay: showArts ? `${i * 80}ms` : "0ms" }}
+                    />
+                  );
+                })}
 
                 {/* Main card image */}
                 <img
