@@ -27,12 +27,14 @@ function Page() {
       img: burgerImg,
       alt: "Hambúrguer",
       leftArt: floatBurger,
+      rightArt: floatMarketR,
     },
     {
       key: "multi" as const,
       title: "Multicategorias",
       img: basketImg,
       alt: "Cesta de mercado",
+      leftArt: floatBurger,
       rightArt: floatMarketR,
     },
   ];
