@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import burgerImg from "@/assets/burger-card.png";
 import basketImg from "@/assets/basket-card.png";
-import floatBurger from "@/assets/floating-burger-ingredients.png";
+import floatRestLeft from "@/assets/floating-restaurant-left.png";
+import floatRestRight from "@/assets/floating-restaurant-right.png";
 import floatPetshop from "@/assets/floating-petshop.png";
 import floatPapelaria from "@/assets/floating-papelaria.png";
 import floatFarmacia from "@/assets/floating-farmacia.png";
@@ -30,10 +31,8 @@ function Page() {
       img: burgerImg,
       alt: "Hambúrguer",
       arts: [
-        { src: floatBurger, pos: "left-top" },
-        { src: floatBurger, pos: "left-bottom" },
-        { src: floatBurger, pos: "right-top" },
-        { src: floatBurger, pos: "right-bottom" },
+        { src: floatRestLeft, pos: "left-mid" },
+        { src: floatRestRight, pos: "right-mid" },
       ],
     },
     {
