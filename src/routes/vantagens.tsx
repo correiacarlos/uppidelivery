@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import burgerImg from "@/assets/burger-card.png";
 import basketImg from "@/assets/basket-card.png";
-import floatBurger from "@/assets/floating-burger-ingredients.png";
+import floatRestLeft from "@/assets/floating-restaurant-left.png";
+import floatRestRight from "@/assets/floating-restaurant-right.png";
 import floatPetshop from "@/assets/floating-petshop.png";
 import floatPapelaria from "@/assets/floating-papelaria.png";
 import floatFarmacia from "@/assets/floating-farmacia.png";
@@ -30,10 +31,8 @@ function Page() {
       img: burgerImg,
       alt: "Hambúrguer",
       arts: [
-        { src: floatBurger, pos: "left-top" },
-        { src: floatBurger, pos: "left-bottom" },
-        { src: floatBurger, pos: "right-top" },
-        { src: floatBurger, pos: "right-bottom" },
+        { src: floatRestLeft, pos: "left-mid" },
+        { src: floatRestRight, pos: "right-mid" },
       ],
     },
     {
@@ -107,6 +106,7 @@ function Page() {
                 {/* Floating arts: themed clusters around each card on hover */}
                 {c.arts.map((art, i) => {
                   const isLeft = art.pos.startsWith("left");
+                  const isMid = art.pos.endsWith("mid");
                   const positionClass =
                     art.pos === "left-top"
                       ? "-left-20 top-2"
@@ -116,7 +116,10 @@ function Page() {
                           ? "-right-20 top-2"
                           : art.pos === "right-bottom"
                             ? "-right-20 bottom-2"
-                            : "-right-24 top-1/2 -translate-y-1/2";
+                            : art.pos === "left-mid"
+                              ? "-left-28 top-1/2 -translate-y-1/2"
+                              : "-right-28 top-1/2 -translate-y-1/2";
+                  const sizeClass = isMid ? "h-72 w-52" : "h-36 w-36";
                   return (
                     <img
                       key={i}
@@ -126,7 +129,7 @@ function Page() {
                       loading="lazy"
                       width={512}
                       height={512}
-                      className={`pointer-events-none absolute ${positionClass} hidden h-36 w-36 object-contain transition-all duration-500 sm:block ${
+                      className={`pointer-events-none absolute ${positionClass} hidden ${sizeClass} object-contain transition-all duration-500 sm:block ${
                         showArts
                           ? "translate-x-0 opacity-100"
                           : isLeft
