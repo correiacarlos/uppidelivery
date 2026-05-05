@@ -3,7 +3,6 @@ import { useState } from "react";
 import burgerImg from "@/assets/burger-card.png";
 import basketImg from "@/assets/basket-card.png";
 import floatBurger from "@/assets/floating-burger-ingredients.png";
-import floatMarketR from "@/assets/floating-market-right.png";
 import floatPetshop from "@/assets/floating-petshop.png";
 import floatPapelaria from "@/assets/floating-papelaria.png";
 import floatFarmacia from "@/assets/floating-farmacia.png";
@@ -47,7 +46,6 @@ function Page() {
         { src: floatFarmacia, pos: "left-bottom" },
         { src: floatPapelaria, pos: "right-top" },
         { src: floatPresentes, pos: "right-bottom" },
-        { src: floatMarketR, pos: "right-mid" },
       ],
     },
   ];
