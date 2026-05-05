@@ -119,7 +119,11 @@ function Page() {
                             : art.pos === "left-mid"
                               ? "-left-28 top-1/2 -translate-y-1/2"
                               : "-right-28 top-1/2 -translate-y-1/2";
-                  const sizeClass = isMid ? "h-72 w-52" : "h-36 w-36";
+                  const sizeClass = isMid
+                    ? art.pos === "right-mid"
+                      ? "h-[27rem] w-78"
+                      : "h-72 w-52"
+                    : "h-36 w-36";
                   return (
                     <img
                       key={i}
