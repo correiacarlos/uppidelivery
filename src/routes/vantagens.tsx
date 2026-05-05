@@ -97,7 +97,7 @@ function Page() {
                 onMouseLeave={() => setHovered(null)}
                 className={`relative overflow-visible rounded-2xl bg-primary px-6 pb-6 pt-8 text-left shadow-lg transition-all duration-300 ${
                   isHovered
-                    ? "scale-[1.03] shadow-2xl ring-4 ring-primary/30"
+                    ? "z-20 scale-[1.03] shadow-2xl ring-4 ring-primary/30"
                     : hovered
                       ? "opacity-50 brightness-75"
                       : ""
@@ -129,7 +129,7 @@ function Page() {
                       loading="lazy"
                       width={512}
                       height={512}
-                      className={`pointer-events-none absolute ${positionClass} hidden ${sizeClass} object-contain transition-all duration-500 sm:block ${
+                      className={`pointer-events-none absolute z-30 ${positionClass} hidden ${sizeClass} object-contain transition-all duration-500 sm:block ${
                         showArts
                           ? "translate-x-0 opacity-100"
                           : isLeft
