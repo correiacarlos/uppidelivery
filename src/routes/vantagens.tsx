@@ -155,7 +155,7 @@ function Page() {
                   className={`pointer-events-none absolute object-contain transition-transform duration-300 ${
                     c.key === "rest"
                       ? "top-2 right-6 h-[11.5rem] w-[11.5rem] sm:top-3 sm:right-12 sm:h-[15rem] sm:w-[15rem]"
-                      : "top-2 right-6 h-[11.5rem] w-[11.5rem] sm:top-3 sm:right-12 sm:h-[15rem] sm:w-[15rem]"
+                      : "-top-4 right-6 h-[11.5rem] w-[11.5rem] sm:-top-6 sm:right-12 sm:h-[15rem] sm:w-[15rem]"
                   } ${isHovered ? "-rotate-6 scale-[1.265]" : ""}`}
                 />
                 <h2 className="text-[1.8rem] font-bold text-primary-foreground sm:text-[2.25rem]">
