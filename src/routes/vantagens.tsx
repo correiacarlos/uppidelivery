@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import burgerImg from "@/assets/burger-card.png";
 import basketImg from "@/assets/basket-card.png";
 import floatRestLeft from "@/assets/floating-restaurant-left.png";
@@ -23,6 +23,20 @@ export const Route = createFileRoute("/vantagens")({
 
 function Page() {
   const [hovered, setHovered] = useState<"rest" | "multi" | null>(null);
+  const clearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleEnter = (key: "rest" | "multi") => {
+    if (clearTimerRef.current) {
+      clearTimeout(clearTimerRef.current);
+      clearTimerRef.current = null;
+    }
+    setHovered(key);
+  };
+
+  const handleLeave = () => {
+    if (clearTimerRef.current) clearTimeout(clearTimerRef.current);
+    clearTimerRef.current = setTimeout(() => setHovered(null), 150);
+  };
 
   const cards = [
     {
@@ -93,8 +107,8 @@ function Page() {
             return (
               <div
                 key={c.key}
-                onMouseEnter={() => setHovered(c.key)}
-                onMouseLeave={() => setHovered(null)}
+                onMouseEnter={() => handleEnter(c.key)}
+                onMouseLeave={handleLeave}
                 className={`relative overflow-visible rounded-2xl bg-primary px-6 pb-6 pt-8 text-left shadow-lg transition-all duration-300 ${
                   isHovered
                     ? "z-20 scale-[1.03] shadow-2xl ring-4 ring-primary/30"
@@ -176,6 +190,8 @@ function Page() {
 
         {/* Suggestions / segments — only visible on hover */}
         <div
+          onMouseEnter={() => hovered && handleEnter(hovered)}
+          onMouseLeave={handleLeave}
           className={`mt-20 transition-opacity duration-300 ${
             hovered ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
