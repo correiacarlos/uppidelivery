@@ -152,9 +152,11 @@ function Page() {
                   loading="lazy"
                   width={768}
                   height={768}
-                  className={`pointer-events-none absolute -top-10 right-2 h-40 w-40 object-contain transition-transform duration-300 sm:-top-14 sm:right-4 sm:h-52 sm:w-52 ${
-                    isHovered ? "-rotate-3 scale-110" : ""
-                  }`}
+                  className={`pointer-events-none absolute object-contain transition-transform duration-300 ${
+                    c.key === "rest"
+                      ? "-top-4 right-10 h-[11.5rem] w-[11.5rem] sm:-top-6 sm:right-16 sm:h-[15rem] sm:w-[15rem]"
+                      : "-top-10 right-2 h-40 w-40 sm:-top-14 sm:right-4 sm:h-52 sm:w-52"
+                  } ${isHovered ? "-rotate-3 scale-110" : ""}`}
                 />
                 <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">
                   {c.title}
