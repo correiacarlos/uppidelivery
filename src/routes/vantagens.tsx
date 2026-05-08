@@ -122,7 +122,7 @@ function Page() {
                   const sizeClass = isMid
                     ? art.pos === "right-mid"
                       ? "h-[18.9rem] w-[13.65rem]"
-                      : "h-72 w-52"
+                      : "h-[12.6rem] w-[9.1rem]"
                     : "h-36 w-36";
                   return (
                     <img
