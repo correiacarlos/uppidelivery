@@ -158,7 +158,7 @@ function Page() {
                       : "-top-10 right-2 h-40 w-40 sm:-top-14 sm:right-4 sm:h-52 sm:w-52"
                   } ${isHovered ? (c.key === "rest" ? "-rotate-6 scale-[1.265]" : "-rotate-3 scale-110") : ""}`}
                 />
-                <h2 className="text-2xl font-bold text-primary-foreground sm:text-3xl">
+                <h2 className="text-[1.8rem] font-bold text-primary-foreground sm:text-[2.25rem]">
                   {c.title}
                 </h2>
                 <div className="mt-20 sm:mt-24">
