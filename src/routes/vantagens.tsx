@@ -154,7 +154,7 @@ function Page() {
                   height={768}
                   className={`pointer-events-none absolute object-contain transition-transform duration-300 ${
                     c.key === "rest"
-                      ? "top-2 right-8 h-46 w-46 sm:top-4 sm:right-16 sm:h-60 sm:w-60"
+                      ? "-top-4 right-10 h-[11.5rem] w-[11.5rem] sm:-top-6 sm:right-16 sm:h-[15rem] sm:w-[15rem]"
                       : "-top-10 right-2 h-40 w-40 sm:-top-14 sm:right-4 sm:h-52 sm:w-52"
                   } ${isHovered ? "-rotate-3 scale-110" : ""}`}
                 />
