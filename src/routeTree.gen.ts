@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VantagensRouteImport } from './routes/vantagens'
+import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SejaEntregadorRouteImport } from './routes/seja-entregador'
 import { Route as EntregadoresRouteImport } from './routes/entregadores'
 import { Route as ContatoRouteImport } from './routes/contato'
@@ -21,6 +22,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const VantagensRoute = VantagensRouteImport.update({
   id: '/vantagens',
   path: '/vantagens',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SejaEntregadorRoute = SejaEntregadorRouteImport.update({
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
   '/seja-entregador': typeof SejaEntregadorRoute
+  '/sobre': typeof SobreRoute
   '/vantagens': typeof VantagensRoute
 }
 export interface FileRoutesByTo {
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
   '/seja-entregador': typeof SejaEntregadorRoute
+  '/sobre': typeof SobreRoute
   '/vantagens': typeof VantagensRoute
 }
 export interface FileRoutesById {
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
   '/seja-entregador': typeof SejaEntregadorRoute
+  '/sobre': typeof SobreRoute
   '/vantagens': typeof VantagensRoute
 }
 export interface FileRouteTypes {
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/contato'
     | '/entregadores'
     | '/seja-entregador'
+    | '/sobre'
     | '/vantagens'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/contato'
     | '/entregadores'
     | '/seja-entregador'
+    | '/sobre'
     | '/vantagens'
   id:
     | '__root__'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/contato'
     | '/entregadores'
     | '/seja-entregador'
+    | '/sobre'
     | '/vantagens'
   fileRoutesById: FileRoutesById
 }
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   ContatoRoute: typeof ContatoRoute
   EntregadoresRoute: typeof EntregadoresRoute
   SejaEntregadorRoute: typeof SejaEntregadorRoute
+  SobreRoute: typeof SobreRoute
   VantagensRoute: typeof VantagensRoute
 }
 
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/vantagens'
       fullPath: '/vantagens'
       preLoaderRoute: typeof VantagensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/seja-entregador': {
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContatoRoute: ContatoRoute,
   EntregadoresRoute: EntregadoresRoute,
   SejaEntregadorRoute: SejaEntregadorRoute,
+  SobreRoute: SobreRoute,
   VantagensRoute: VantagensRoute,
 }
 export const routeTree = rootRouteImport
