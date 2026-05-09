@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VantagensRouteImport } from './routes/vantagens'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SejaEntregadorRouteImport } from './routes/seja-entregador'
+import { Route as PerguntasFrequentesRouteImport } from './routes/perguntas-frequentes'
 import { Route as EntregadoresRouteImport } from './routes/entregadores'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as ComoFuncionaRouteImport } from './routes/como-funciona'
@@ -32,6 +33,11 @@ const SobreRoute = SobreRouteImport.update({
 const SejaEntregadorRoute = SejaEntregadorRouteImport.update({
   id: '/seja-entregador',
   path: '/seja-entregador',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerguntasFrequentesRoute = PerguntasFrequentesRouteImport.update({
+  id: '/perguntas-frequentes',
+  path: '/perguntas-frequentes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EntregadoresRoute = EntregadoresRouteImport.update({
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
+  '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/seja-entregador': typeof SejaEntregadorRoute
   '/sobre': typeof SobreRoute
   '/vantagens': typeof VantagensRoute
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
+  '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/seja-entregador': typeof SejaEntregadorRoute
   '/sobre': typeof SobreRoute
   '/vantagens': typeof VantagensRoute
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
   '/entregadores': typeof EntregadoresRoute
+  '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/seja-entregador': typeof SejaEntregadorRoute
   '/sobre': typeof SobreRoute
   '/vantagens': typeof VantagensRoute
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
+    | '/perguntas-frequentes'
     | '/seja-entregador'
     | '/sobre'
     | '/vantagens'
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
+    | '/perguntas-frequentes'
     | '/seja-entregador'
     | '/sobre'
     | '/vantagens'
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/como-funciona'
     | '/contato'
     | '/entregadores'
+    | '/perguntas-frequentes'
     | '/seja-entregador'
     | '/sobre'
     | '/vantagens'
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   ComoFuncionaRoute: typeof ComoFuncionaRoute
   ContatoRoute: typeof ContatoRoute
   EntregadoresRoute: typeof EntregadoresRoute
+  PerguntasFrequentesRoute: typeof PerguntasFrequentesRoute
   SejaEntregadorRoute: typeof SejaEntregadorRoute
   SobreRoute: typeof SobreRoute
   VantagensRoute: typeof VantagensRoute
@@ -169,6 +182,13 @@ declare module '@tanstack/react-router' {
       path: '/seja-entregador'
       fullPath: '/seja-entregador'
       preLoaderRoute: typeof SejaEntregadorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perguntas-frequentes': {
+      id: '/perguntas-frequentes'
+      path: '/perguntas-frequentes'
+      fullPath: '/perguntas-frequentes'
+      preLoaderRoute: typeof PerguntasFrequentesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/entregadores': {
@@ -223,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComoFuncionaRoute: ComoFuncionaRoute,
   ContatoRoute: ContatoRoute,
   EntregadoresRoute: EntregadoresRoute,
+  PerguntasFrequentesRoute: PerguntasFrequentesRoute,
   SejaEntregadorRoute: SejaEntregadorRoute,
   SobreRoute: SobreRoute,
   VantagensRoute: VantagensRoute,
@@ -230,3 +251,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}

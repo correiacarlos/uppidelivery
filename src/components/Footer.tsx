@@ -9,7 +9,7 @@ export function Footer() {
       title: "Institucional",
       links: [
         { label: "Sobre o Uppi Delivery", to: "/sobre" },
-        { label: "Perguntas Frequentes", to: "/" },
+        { label: "Perguntas Frequentes", to: "/perguntas-frequentes" },
         { label: "Contato", to: "/contato" },
         { label: "Termos e Condições", to: "/" },
       ],
