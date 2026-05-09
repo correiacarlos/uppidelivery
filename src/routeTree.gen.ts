@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VantagensRouteImport } from './routes/vantagens'
+import { Route as SugerirEstabelecimentoRouteImport } from './routes/sugerir-estabelecimento'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SejaEntregadorRouteImport } from './routes/seja-entregador'
 import { Route as PerguntasFrequentesRouteImport } from './routes/perguntas-frequentes'
@@ -23,6 +24,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const VantagensRoute = VantagensRouteImport.update({
   id: '/vantagens',
   path: '/vantagens',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SugerirEstabelecimentoRoute = SugerirEstabelecimentoRouteImport.update({
+  id: '/sugerir-estabelecimento',
+  path: '/sugerir-estabelecimento',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SobreRoute = SobreRouteImport.update({
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/seja-entregador': typeof SejaEntregadorRoute
   '/sobre': typeof SobreRoute
+  '/sugerir-estabelecimento': typeof SugerirEstabelecimentoRoute
   '/vantagens': typeof VantagensRoute
 }
 export interface FileRoutesByTo {
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/seja-entregador': typeof SejaEntregadorRoute
   '/sobre': typeof SobreRoute
+  '/sugerir-estabelecimento': typeof SugerirEstabelecimentoRoute
   '/vantagens': typeof VantagensRoute
 }
 export interface FileRoutesById {
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/seja-entregador': typeof SejaEntregadorRoute
   '/sobre': typeof SobreRoute
+  '/sugerir-estabelecimento': typeof SugerirEstabelecimentoRoute
   '/vantagens': typeof VantagensRoute
 }
 export interface FileRouteTypes {
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/perguntas-frequentes'
     | '/seja-entregador'
     | '/sobre'
+    | '/sugerir-estabelecimento'
     | '/vantagens'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | '/perguntas-frequentes'
     | '/seja-entregador'
     | '/sobre'
+    | '/sugerir-estabelecimento'
     | '/vantagens'
   id:
     | '__root__'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/perguntas-frequentes'
     | '/seja-entregador'
     | '/sobre'
+    | '/sugerir-estabelecimento'
     | '/vantagens'
   fileRoutesById: FileRoutesById
 }
@@ -158,6 +170,7 @@ export interface RootRouteChildren {
   PerguntasFrequentesRoute: typeof PerguntasFrequentesRoute
   SejaEntregadorRoute: typeof SejaEntregadorRoute
   SobreRoute: typeof SobreRoute
+  SugerirEstabelecimentoRoute: typeof SugerirEstabelecimentoRoute
   VantagensRoute: typeof VantagensRoute
 }
 
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/vantagens'
       fullPath: '/vantagens'
       preLoaderRoute: typeof VantagensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sugerir-estabelecimento': {
+      id: '/sugerir-estabelecimento'
+      path: '/sugerir-estabelecimento'
+      fullPath: '/sugerir-estabelecimento'
+      preLoaderRoute: typeof SugerirEstabelecimentoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sobre': {
@@ -246,8 +266,18 @@ const rootRouteChildren: RootRouteChildren = {
   PerguntasFrequentesRoute: PerguntasFrequentesRoute,
   SejaEntregadorRoute: SejaEntregadorRoute,
   SobreRoute: SobreRoute,
+  SugerirEstabelecimentoRoute: SugerirEstabelecimentoRoute,
   VantagensRoute: VantagensRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
