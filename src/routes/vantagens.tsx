@@ -177,7 +177,7 @@ function Page() {
                 </h2>
                 <div className="mt-20 sm:mt-24">
                   <Link
-                    to="/login-estabelecimento"
+                    to="/cadastrar-estabelecimento"
                     className="inline-flex items-center justify-center rounded-full bg-white px-6 py-2.5 text-sm font-bold text-primary transition hover:bg-white/90"
                   >
                     Cadastrar agora
