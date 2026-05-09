@@ -17,7 +17,7 @@ export function Footer() {
     {
       title: "Participe",
       links: [
-        { label: "Cadastre seu Estabelecimento", to: "/contato" },
+        { label: "Cadastre seu Estabelecimento", to: "/vantagens" },
         { label: "Sugerir estabelecimento", to: "/contato" },
         { label: "Licenciado Uppi Delivery", to: "/contato" },
         { label: "API Desenvolvedor", to: "/" },
