@@ -18,7 +18,7 @@ export function Footer() {
       title: "Participe",
       links: [
         { label: "Cadastre seu Estabelecimento", to: "/vantagens" },
-        { label: "Sugerir estabelecimento", to: "/contato" },
+        { label: "Sugerir estabelecimento", to: "/sugerir-estabelecimento" },
       ],
     },
   ];
