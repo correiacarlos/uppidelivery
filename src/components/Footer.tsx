@@ -50,11 +50,19 @@ export function Footer() {
         <div>
           <h3 className="text-sm font-black">Redes Sociais</h3>
           <div className="mt-4 flex flex-wrap gap-3">
-            {[FaInstagram, FaTwitter, FaLinkedinIn, FaFacebookF, Youtube].map((Icon, i) => (
+            {[
+              { Icon: FaInstagram, href: "https://www.instagram.com/uppi.delivery", label: "Instagram" },
+              { Icon: FaTwitter, href: "#", label: "Twitter" },
+              { Icon: FaLinkedinIn, href: "#", label: "LinkedIn" },
+              { Icon: FaFacebookF, href: "#", label: "Facebook" },
+              { Icon: Youtube, href: "#", label: "YouTube" },
+            ].map(({ Icon, href, label }) => (
               <a
-                key={i}
-                href="#"
-                aria-label="Rede social"
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                aria-label={label}
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 transition hover:bg-white/25"
               >
                 <Icon className="h-4 w-4" />
