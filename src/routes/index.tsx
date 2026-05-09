@@ -50,7 +50,7 @@ function Hero() {
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
-              to="/login-estabelecimento"
+              to="/vantagens"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground shadow-lg transition hover:bg-primary-dark"
             >
               Cadastrar estabelecimento <Send className="h-4 w-4" />
